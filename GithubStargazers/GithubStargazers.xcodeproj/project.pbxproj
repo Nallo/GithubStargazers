@@ -11,6 +11,7 @@
 		446C8017285930E8006E78F9 /* GithubStargazers.h in Headers */ = {isa = PBXBuildFile; fileRef = 446C800B285930E7006E78F9 /* GithubStargazers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		446C8021285931D5006E78F9 /* GithubService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C8020285931D5006E78F9 /* GithubService_Tests.swift */; };
 		446C802328593D22006E78F9 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802228593D22006E78F9 /* HTTPClient.swift */; };
+		446C802628593D67006E78F9 /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802528593D67006E78F9 /* HTTPClientSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		446C8010285930E7006E78F9 /* GithubStargazersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubStargazersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		446C8020285931D5006E78F9 /* GithubService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService_Tests.swift; sourceTree = "<group>"; };
 		446C802228593D22006E78F9 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		446C802528593D67006E78F9 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,9 +82,18 @@
 		446C8014285930E8006E78F9 /* GithubStargazersTests */ = {
 			isa = PBXGroup;
 			children = (
+				446C802428593D58006E78F9 /* Helpers */,
 				446C8020285931D5006E78F9 /* GithubService_Tests.swift */,
 			);
 			path = GithubStargazersTests;
+			sourceTree = "<group>";
+		};
+		446C802428593D58006E78F9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				446C802528593D67006E78F9 /* HTTPClientSpy.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				446C8021285931D5006E78F9 /* GithubService_Tests.swift in Sources */,
+				446C802628593D67006E78F9 /* HTTPClientSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,16 +23,6 @@ final class GithubService {
     }
 }
 
-class HTTPClientSpy: HTTPClient {
-    private(set) var requestedUrls = [URL]()
-    private(set) var requestedHeader: (headerField: String, headerValue: String) = ("","")
-
-    func get(url: URL, headers: (headerField: String, headerValue: String)) {
-        requestedUrls.append(url)
-        requestedHeader = headers
-    }
-}
-
 class GithubService_Tests: XCTestCase {
 
     func test_service_doesNotRequestUrlUponCreation() {
