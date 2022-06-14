@@ -7,15 +7,17 @@
 
 import XCTest
 
-final class GithubService {
-    private let client: HTTPClientSpy
+protocol HTTPClient {}
 
-    init(_ client: HTTPClientSpy) {
+final class GithubService {
+    private let client: HTTPClient
+
+    init(_ client: HTTPClient) {
         self.client = client
     }
 }
 
-class HTTPClientSpy {
+class HTTPClientSpy: HTTPClient {
     private(set) var requestedUrls = [URL]()
 }
 
