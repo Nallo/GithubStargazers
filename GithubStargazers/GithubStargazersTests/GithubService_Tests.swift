@@ -8,7 +8,7 @@
 import XCTest
 
 protocol HTTPClient {
-    func get(url: URL)
+    func get(url: URL, headers: [(headerField: String, headerValue: String)])
 }
 
 final class GithubService {
@@ -21,14 +21,14 @@ final class GithubService {
     func loadStargazers(forUser user: String, withRepo repo: String) {
         let url = URL(string: "https://api.github.com/repos/\(user)/\(repo)/stargazers")
 
-        client.get(url: url!)
+        client.get(url: url!, headers: [])
     }
 }
 
 class HTTPClientSpy: HTTPClient {
     private(set) var requestedUrls = [URL]()
 
-    func get(url: URL) {
+    func get(url: URL, headers: [(headerField: String, headerValue: String)] = []) {
         requestedUrls.append(url)
     }
 }
