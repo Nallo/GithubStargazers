@@ -24,10 +24,18 @@ class HTTPClientSpy: HTTPClient {
 class GithubService_Tests: XCTestCase {
 
     func test_load_doesNotRequestUrlUponCreation() {
-        let client = HTTPClientSpy()
-        let _ = GithubService(client)
+        let (client, _) = makeSUT()
 
         XCTAssertEqual([], client.requestedUrls, "expecting sut not to perform any requests upon creation")
+    }
+
+    // MARK: - Helpers
+
+    private func makeSUT() -> (client: HTTPClientSpy, sut: GithubService) {
+        let client = HTTPClientSpy()
+        let sut = GithubService(client)
+
+        return (client, sut)
     }
 
 }
