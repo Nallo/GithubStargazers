@@ -18,7 +18,7 @@ final class GithubService {
 }
 
 class HTTPClientSpy: HTTPClient {
-    private(set) var requestedUrls = [URL]()
+    private(set) var requestedUrls = [String]()
 }
 
 class GithubService_Tests: XCTestCase {
