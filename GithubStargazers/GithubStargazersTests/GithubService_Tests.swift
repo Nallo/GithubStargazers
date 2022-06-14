@@ -6,11 +6,7 @@
 //
 
 import XCTest
-
-protocol HTTPClient {
-    typealias HTTPHeader = (headerField: String, headerValue: String)
-    func get(url: URL, headers: HTTPHeader)
-}
+import GithubStargazers
 
 final class GithubService {
     private let client: HTTPClient

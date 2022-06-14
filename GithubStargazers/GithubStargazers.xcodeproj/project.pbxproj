@@ -10,6 +10,7 @@
 		446C8011285930E7006E78F9 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446C8008285930E7006E78F9 /* GithubStargazers.framework */; };
 		446C8017285930E8006E78F9 /* GithubStargazers.h in Headers */ = {isa = PBXBuildFile; fileRef = 446C800B285930E7006E78F9 /* GithubStargazers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		446C8021285931D5006E78F9 /* GithubService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C8020285931D5006E78F9 /* GithubService_Tests.swift */; };
+		446C802328593D22006E78F9 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802228593D22006E78F9 /* HTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,7 @@
 		446C800B285930E7006E78F9 /* GithubStargazers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GithubStargazers.h; sourceTree = "<group>"; };
 		446C8010285930E7006E78F9 /* GithubStargazersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubStargazersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		446C8020285931D5006E78F9 /* GithubService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService_Tests.swift; sourceTree = "<group>"; };
+		446C802228593D22006E78F9 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				446C800B285930E7006E78F9 /* GithubStargazers.h */,
+				446C802228593D22006E78F9 /* HTTPClient.swift */,
 			);
 			path = GithubStargazers;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 				TargetAttributes = {
 					446C8007285930E7006E78F9 = {
 						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1320;
 					};
 					446C800F285930E7006E78F9 = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -191,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				446C802328593D22006E78F9 /* HTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +342,7 @@
 		446C801B285930E8006E78F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -358,6 +364,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -365,6 +372,7 @@
 		446C801C285930E8006E78F9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -393,6 +401,7 @@
 		446C801E285930E8006E78F9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EWY7M8J6JS;
@@ -408,6 +417,7 @@
 		446C801F285930E8006E78F9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = EWY7M8J6JS;
