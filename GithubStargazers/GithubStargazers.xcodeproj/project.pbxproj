@@ -10,6 +10,7 @@
 		446C8011285930E7006E78F9 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446C8008285930E7006E78F9 /* GithubStargazers.framework */; };
 		446C8016285930E8006E78F9 /* GithubStargazersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C8015285930E8006E78F9 /* GithubStargazersTests.swift */; };
 		446C8017285930E8006E78F9 /* GithubStargazers.h in Headers */ = {isa = PBXBuildFile; fileRef = 446C800B285930E7006E78F9 /* GithubStargazers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		446C8021285931D5006E78F9 /* GithubService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C8020285931D5006E78F9 /* GithubService_Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,7 @@
 		446C800B285930E7006E78F9 /* GithubStargazers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GithubStargazers.h; sourceTree = "<group>"; };
 		446C8010285930E7006E78F9 /* GithubStargazersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubStargazersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		446C8015285930E8006E78F9 /* GithubStargazersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubStargazersTests.swift; sourceTree = "<group>"; };
+		446C8020285931D5006E78F9 /* GithubService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService_Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		446C8014285930E8006E78F9 /* GithubStargazersTests */ = {
 			isa = PBXGroup;
 			children = (
+				446C8020285931D5006E78F9 /* GithubService_Tests.swift */,
 				446C8015285930E8006E78F9 /* GithubStargazersTests.swift */,
 			);
 			path = GithubStargazersTests;
@@ -198,6 +201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				446C8021285931D5006E78F9 /* GithubService_Tests.swift in Sources */,
 				446C8016285930E8006E78F9 /* GithubStargazersTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
