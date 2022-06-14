@@ -8,7 +8,8 @@
 import XCTest
 
 protocol HTTPClient {
-    func get(url: URL, headers: [(headerField: String, headerValue: String)])
+    typealias HTTPHeader = (headerField: String, headerValue: String)
+    func get(url: URL, headers: HTTPHeader)
 }
 
 final class GithubService {
@@ -20,16 +21,19 @@ final class GithubService {
 
     func loadStargazers(forUser user: String, withRepo repo: String) {
         let url = URL(string: "https://api.github.com/repos/\(user)/\(repo)/stargazers")!
+        let headers = ("Accept", "application/vnd.github.v3+json")
 
-        client.get(url: url, headers: [])
+        client.get(url: url, headers: headers)
     }
 }
 
 class HTTPClientSpy: HTTPClient {
     private(set) var requestedUrls = [URL]()
+    private(set) var requestedHeader: (headerField: String, headerValue: String) = ("","")
 
-    func get(url: URL, headers: [(headerField: String, headerValue: String)] = []) {
+    func get(url: URL, headers: (headerField: String, headerValue: String)) {
         requestedUrls.append(url)
+        requestedHeader = headers
     }
 }
 
@@ -59,6 +63,16 @@ class GithubService_Tests: XCTestCase {
             client.requestedUrls,
             "expecting sut to hit github endpoint every time loadStargazers is invoked"
         )
+    }
+
+    func test_loadStargazers_passTheCorrectHttpHeadersToTheClient() {
+        let (client, sut) = makeSUT()
+
+        sut.loadStargazers(forUser: "a-user", withRepo: "a-repo")
+
+        let (receivedHeaderField, receivedHeaderValue) = client.requestedHeader
+        XCTAssertEqual("Accept", receivedHeaderField)
+        XCTAssertEqual("application/vnd.github.v3+json", receivedHeaderValue)
     }
 
     // MARK: - Helpers
