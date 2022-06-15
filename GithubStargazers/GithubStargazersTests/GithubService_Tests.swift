@@ -15,7 +15,7 @@ final class GithubService {
         self.client = client
     }
 
-    func loadStargazers(forUser user: String, withRepo repo: String) {
+    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping (String) -> Void) {
         let url = URL(string: "https://api.github.com/repos/")!
             .appendingPathComponent(user)
             .appendingPathComponent(repo)
@@ -41,8 +41,8 @@ class GithubService_Tests: XCTestCase {
         let otherRepo = "other-repo"
         let (client, sut) = makeSUT()
 
-        sut.loadStargazers(forUser: user, withRepo: repo)
-        sut.loadStargazers(forUser: otherUser, withRepo: otherRepo)
+        sut.loadStargazers(forUser: user, withRepo: repo) { _ in }
+        sut.loadStargazers(forUser: otherUser, withRepo: otherRepo) { _ in }
 
         XCTAssertEqual(
             [
@@ -59,7 +59,7 @@ class GithubService_Tests: XCTestCase {
         let repo = "a repo"
         let (client, sut) = makeSUT()
 
-        sut.loadStargazers(forUser: user, withRepo: repo)
+        sut.loadStargazers(forUser: user, withRepo: repo) { _ in }
 
         XCTAssertEqual(
             ["https://api.github.com/repos/\(user)/\(repo)/stargazers".replacingOccurrences(of: " ", with: "%20")],
@@ -71,7 +71,7 @@ class GithubService_Tests: XCTestCase {
     func test_loadStargazers_passTheCorrectHttpHeadersToTheClient() {
         let (client, sut) = makeSUT()
 
-        sut.loadStargazers(forUser: "a-user", withRepo: "a-repo")
+        sut.loadStargazers(forUser: "a-user", withRepo: "a-repo") { _ in }
 
         let (receivedHeaderField, receivedHeaderValue) = client.requestedHeader
         XCTAssertEqual("Accept", receivedHeaderField)
