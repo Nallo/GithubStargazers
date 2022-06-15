@@ -31,9 +31,20 @@ final class GithubService {
             .appendingPathComponent("stargazers")
         let headers = ("Accept", "application/vnd.github.v3+json")
 
-        client.get(url: url, headers: headers) { _ in
-            completion(.failure(.connectivity))
+        client.get(url: url, headers: headers) { result in
+            switch result {
+
+            case let .success((data, response)):
+                completion(self.map(data, and: response))
+
+            case .failure:
+                completion(.failure(.connectivity))
+            }
         }
+    }
+
+    private func map(_ data: Data, and response: HTTPURLResponse) -> GithubService.Result {
+        return .failure(Error.invalidData)
     }
 }
 
@@ -96,6 +107,15 @@ class GithubService_Tests: XCTestCase {
             let error = NSError(domain: "Error", code: -1)
             client.complete(with: error)
         }
+    }
+
+    func test_loadStargazers_deliversInvalidDataErrorOn200HTTPResponseWithInvalidJSON() {
+        let (client, sut) = makeSUT()
+
+        expect(sut, toCompleteWith: .failure(.invalidData), when: {
+            let invalidJSON = Data("invalid json".utf8)
+            client.complete(withStatusCode: 200, data: invalidJSON)
+        })
     }
 
     // MARK: - Helpers
