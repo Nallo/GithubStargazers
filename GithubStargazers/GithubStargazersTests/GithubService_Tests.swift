@@ -8,59 +8,6 @@
 import XCTest
 import GithubStargazers
 
-final class GithubService {
-
-    typealias Result = Swift.Result<[Stargazer], GithubService.Error>
-    typealias Completion = (Result) -> Void
-
-    enum Error: Swift.Error {
-        case connectivity
-        case invalidData
-    }
-
-    private struct Response: Decodable {
-        let login: String
-        let avatar_url: URL
-    }
-
-    private let client: HTTPClient
-
-    init(_ client: HTTPClient) {
-        self.client = client
-    }
-
-    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping Completion) {
-        let url = URL(string: "https://api.github.com/repos/")!
-            .appendingPathComponent(user)
-            .appendingPathComponent(repo)
-            .appendingPathComponent("stargazers")
-        let headers = ("Accept", "application/vnd.github.v3+json")
-
-        client.get(url: url, headers: headers) { [weak self] result in
-            guard let self = self else { return }
-
-            switch result {
-
-            case let .success((data, response)):
-                completion(self.map(data, and: response))
-
-            case .failure:
-                completion(.failure(.connectivity))
-            }
-        }
-    }
-
-    private func map(_ data: Data, and response: HTTPURLResponse) -> GithubService.Result {
-        guard
-            response.statusCode == 200,
-            let json = try? JSONDecoder().decode([Response].self, from: data)
-        else {
-            return .failure(.invalidData)
-        }
-        return .success(json.map({ Stargazer(login: $0.login, avatarURL: $0.avatar_url) }))
-    }
-}
-
 class GithubService_Tests: XCTestCase {
 
     func test_service_doesNotRequestUrlUponCreation() {

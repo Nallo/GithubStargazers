@@ -14,6 +14,7 @@
 		446C802628593D67006E78F9 /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802528593D67006E78F9 /* HTTPClientSpy.swift */; };
 		446C80282859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */; };
 		446C802A2859E680006E78F9 /* Stargazer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C80292859E680006E78F9 /* Stargazer.swift */; };
+		446C802C2859E6D5006E78F9 /* GithubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802B2859E6D5006E78F9 /* GithubService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		446C802528593D67006E78F9 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		446C80292859E680006E78F9 /* Stargazer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stargazer.swift; sourceTree = "<group>"; };
+		446C802B2859E6D5006E78F9 /* GithubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				446C800B285930E7006E78F9 /* GithubStargazers.h */,
 				446C802228593D22006E78F9 /* HTTPClient.swift */,
 				446C80292859E680006E78F9 /* Stargazer.swift */,
+				446C802B2859E6D5006E78F9 /* GithubService.swift */,
 			);
 			path = GithubStargazers;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			files = (
 				446C802328593D22006E78F9 /* HTTPClient.swift in Sources */,
 				446C802A2859E680006E78F9 /* Stargazer.swift in Sources */,
+				446C802C2859E6D5006E78F9 /* GithubService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
