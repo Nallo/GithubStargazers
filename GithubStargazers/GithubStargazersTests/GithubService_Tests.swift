@@ -10,6 +10,9 @@ import GithubStargazers
 
 final class GithubService {
 
+    typealias Result = Swift.Result<String, GithubService.Error>
+    typealias Completion = (Result) -> Void
+
     enum Error: Swift.Error {
         case connectivity
         case invalidData
@@ -21,7 +24,7 @@ final class GithubService {
         self.client = client
     }
 
-    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping (Result<String, GithubService.Error>) -> Void) {
+    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping Completion) {
         let url = URL(string: "https://api.github.com/repos/")!
             .appendingPathComponent(user)
             .appendingPathComponent(repo)
