@@ -41,7 +41,7 @@ final class GithubService {
             .appendingPathComponent("stargazers")
         let headers = ("Accept", "application/vnd.github.v3+json")
 
-        client.get(url: url, headers: headers) { result in
+        client.get(url: url, headers: headers) { [unowned self] result in
             switch result {
 
             case let .success((data, response)):
@@ -169,10 +169,11 @@ class GithubService_Tests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeSUT() -> (client: HTTPClientSpy, sut: GithubService) {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (client: HTTPClientSpy, sut: GithubService) {
         let client = HTTPClientSpy()
         let sut = GithubService(client)
-
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
         return (client, sut)
     }
 

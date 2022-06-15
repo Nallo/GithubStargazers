@@ -12,6 +12,7 @@
 		446C8021285931D5006E78F9 /* GithubService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C8020285931D5006E78F9 /* GithubService_Tests.swift */; };
 		446C802328593D22006E78F9 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802228593D22006E78F9 /* HTTPClient.swift */; };
 		446C802628593D67006E78F9 /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802528593D67006E78F9 /* HTTPClientSpy.swift */; };
+		446C80282859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		446C8020285931D5006E78F9 /* GithubService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService_Tests.swift; sourceTree = "<group>"; };
 		446C802228593D22006E78F9 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		446C802528593D67006E78F9 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
+		446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				446C802528593D67006E78F9 /* HTTPClientSpy.swift */,
+				446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 			files = (
 				446C8021285931D5006E78F9 /* GithubService_Tests.swift in Sources */,
 				446C802628593D67006E78F9 /* HTTPClientSpy.swift in Sources */,
+				446C80282859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
