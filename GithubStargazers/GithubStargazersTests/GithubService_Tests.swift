@@ -9,20 +9,28 @@ import XCTest
 import GithubStargazers
 
 final class GithubService {
+
+    enum Error: Swift.Error {
+        case connectivity
+        case invalidData
+    }
+
     private let client: HTTPClient
 
     init(_ client: HTTPClient) {
         self.client = client
     }
 
-    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping (String) -> Void) {
+    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping (Result<String, GithubService.Error>) -> Void) {
         let url = URL(string: "https://api.github.com/repos/")!
             .appendingPathComponent(user)
             .appendingPathComponent(repo)
             .appendingPathComponent("stargazers")
         let headers = ("Accept", "application/vnd.github.v3+json")
 
-        client.get(url: url, headers: headers) { _ in }
+        client.get(url: url, headers: headers) { _ in
+            completion(.failure(.connectivity))
+        }
     }
 }
 
@@ -78,13 +86,25 @@ class GithubService_Tests: XCTestCase {
         XCTAssertEqual("application/vnd.github.v3+json", receivedHeaderValue)
     }
 
-//    func test_loadStargazers_deliversConnectivityErrorOnClientError() {
-//        let clientError = NSError(domain: "Error", code: -1)
-//        let (client, sut) = makeSUT()
-//
-//        sut.loadStargazers(forUser: "user", withRepo: "repo")
-//        client.complete(with: clientError)
-//    }
+    func test_loadStargazers_deliversConnectivityErrorOnClientError() {
+        let clientError = NSError(domain: "Error", code: -1)
+        let (client, sut) = makeSUT()
+
+        let exp = expectation(description: "Wait for client to complete")
+
+        sut.loadStargazers(forUser: "user", withRepo: "repo") { result in
+            switch result {
+            case let .failure(error):
+                XCTAssertEqual(.connectivity, error)
+            default:
+                XCTFail("expected \(clientError), got \(result) instead")
+            }
+            exp.fulfill()
+        }
+        client.complete(with: clientError)
+
+        wait(for: [exp], timeout: 0.5)
+    }
 
     // MARK: - Helpers
 
