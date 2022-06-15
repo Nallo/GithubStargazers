@@ -90,23 +90,12 @@ class GithubService_Tests: XCTestCase {
     }
 
     func test_loadStargazers_deliversConnectivityErrorOnClientError() {
-        let clientError = NSError(domain: "Error", code: -1)
         let (client, sut) = makeSUT()
 
-        let exp = expectation(description: "Wait for client to complete")
-
-        sut.loadStargazers(forUser: "user", withRepo: "repo") { result in
-            switch result {
-            case let .failure(error):
-                XCTAssertEqual(.connectivity, error)
-            default:
-                XCTFail("expected \(clientError), got \(result) instead")
-            }
-            exp.fulfill()
+        expect(sut, toCompleteWith: .failure(.connectivity)) {
+            let error = NSError(domain: "Error", code: -1)
+            client.complete(with: error)
         }
-        client.complete(with: clientError)
-
-        wait(for: [exp], timeout: 0.5)
     }
 
     // MARK: - Helpers
@@ -116,6 +105,27 @@ class GithubService_Tests: XCTestCase {
         let sut = GithubService(client)
 
         return (client, sut)
+    }
+
+    private func expect(_ sut: GithubService, toCompleteWith expectedResult: GithubService.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+        let exp = expectation(description: "Wait for client to complete")
+
+        sut.loadStargazers(forUser: "user", withRepo: "repo") { receivedResult in
+            switch (receivedResult, expectedResult) {
+
+            case let (.failure(receivedError), .failure(expectedError)):
+                XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+
+            default:
+                XCTFail("Expected result \(expectedResult) got \(receivedResult) instead", file: file, line: line)
+            }
+
+            exp.fulfill()
+        }
+
+        action()
+
+        wait(for: [exp], timeout: 0.1)
     }
 
 }
