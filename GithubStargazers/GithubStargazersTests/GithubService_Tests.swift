@@ -18,6 +18,8 @@ final class GithubService {
         case invalidData
     }
 
+    private struct Response: Decodable {}
+
     private let client: HTTPClient
 
     init(_ client: HTTPClient) {
@@ -44,7 +46,13 @@ final class GithubService {
     }
 
     private func map(_ data: Data, and response: HTTPURLResponse) -> GithubService.Result {
-        return .failure(Error.invalidData)
+        guard
+            response.statusCode == 200,
+            let _ = try? JSONDecoder().decode(Response.self, from: data)
+        else {
+            return .failure(.invalidData)
+        }
+        return .success("")
     }
 }
 
@@ -109,6 +117,19 @@ class GithubService_Tests: XCTestCase {
         }
     }
 
+    func test_loadStargazers_deliversInvalidDataErrorOnNon200HTTPResponse() {
+        let (client, sut) = makeSUT()
+
+        let samples = [199, 201, 300, 400, 500]
+
+        samples.enumerated().forEach { index, code in
+            expect(sut, toCompleteWith: .failure(.invalidData), when: {
+                let json = makeStargazersJSON()
+                client.complete(withStatusCode: code, data: json, at: index)
+            })
+        }
+    }
+
     func test_loadStargazers_deliversInvalidDataErrorOn200HTTPResponseWithInvalidJSON() {
         let (client, sut) = makeSUT()
 
@@ -125,6 +146,11 @@ class GithubService_Tests: XCTestCase {
         let sut = GithubService(client)
 
         return (client, sut)
+    }
+
+    private func makeStargazersJSON() -> Data {
+        let json = [String]()
+        return try! JSONSerialization.data(withJSONObject: json)
     }
 
     private func expect(_ sut: GithubService, toCompleteWith expectedResult: GithubService.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
