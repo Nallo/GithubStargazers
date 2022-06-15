@@ -8,11 +8,6 @@
 import XCTest
 import GithubStargazers
 
-struct Stargazer: Hashable {
-    let login: String
-    let avatarURL: URL
-}
-
 final class GithubService {
 
     typealias Result = Swift.Result<[Stargazer], GithubService.Error>
