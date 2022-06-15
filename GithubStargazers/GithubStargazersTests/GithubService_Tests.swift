@@ -41,7 +41,9 @@ final class GithubService {
             .appendingPathComponent("stargazers")
         let headers = ("Accept", "application/vnd.github.v3+json")
 
-        client.get(url: url, headers: headers) { [unowned self] result in
+        client.get(url: url, headers: headers) { [weak self] result in
+            guard let self = self else { return }
+
             switch result {
 
             case let .success((data, response)):
@@ -165,6 +167,19 @@ class GithubService_Tests: XCTestCase {
             let json = makeStargazersJSON([])
             client.complete(withStatusCode: 200, data: json)
         }
+    }
+
+    func test_loadStargazers_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
+        let client = HTTPClientSpy()
+        var sut: GithubService? = GithubService(client)
+
+        var capturedResults = [GithubService.Result]()
+        sut?.loadStargazers(forUser: "a-user", withRepo: "a-repo") { capturedResults.append($0) }
+
+        sut = nil
+        client.complete(withStatusCode: 200, data: makeStargazersJSON([]))
+
+        XCTAssertTrue(capturedResults.isEmpty)
     }
 
     // MARK: - Helpers
