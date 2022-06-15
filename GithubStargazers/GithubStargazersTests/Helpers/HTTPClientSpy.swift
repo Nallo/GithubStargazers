@@ -12,7 +12,7 @@ class HTTPClientSpy: HTTPClient {
     private(set) var requestedUrls = [String]()
     private(set) var requestedHeader: (headerField: String, headerValue: String) = ("","")
 
-    func get(url: URL, headers: (headerField: String, headerValue: String)) {
+    func get(url: URL, headers: HTTPHeader, completion: @escaping (HTTPClient.Result) -> Void) {
         requestedUrls.append(url.absoluteString)
         requestedHeader = headers
     }

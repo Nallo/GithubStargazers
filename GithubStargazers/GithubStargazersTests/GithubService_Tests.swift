@@ -22,7 +22,7 @@ final class GithubService {
             .appendingPathComponent("stargazers")
         let headers = ("Accept", "application/vnd.github.v3+json")
 
-        client.get(url: url, headers: headers)
+        client.get(url: url, headers: headers) { _ in }
     }
 }
 
@@ -77,6 +77,14 @@ class GithubService_Tests: XCTestCase {
         XCTAssertEqual("Accept", receivedHeaderField)
         XCTAssertEqual("application/vnd.github.v3+json", receivedHeaderValue)
     }
+
+//    func test_loadStargazers_deliversConnectivityErrorOnClientError() {
+//        let clientError = NSError(domain: "Error", code: -1)
+//        let (client, sut) = makeSUT()
+//
+//        sut.loadStargazers(forUser: "user", withRepo: "repo")
+//        client.complete(with: clientError)
+//    }
 
     // MARK: - Helpers
 
