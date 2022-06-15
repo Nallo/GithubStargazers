@@ -8,9 +8,14 @@
 import XCTest
 import GithubStargazers
 
+struct Stargazer: Hashable {
+    let login: String
+    let avatarURL: URL
+}
+
 final class GithubService {
 
-    typealias Result = Swift.Result<String, GithubService.Error>
+    typealias Result = Swift.Result<[Stargazer], GithubService.Error>
     typealias Completion = (Result) -> Void
 
     enum Error: Swift.Error {
@@ -18,7 +23,10 @@ final class GithubService {
         case invalidData
     }
 
-    private struct Response: Decodable {}
+    private struct Response: Decodable {
+        let login: String
+        let avatar_url: URL
+    }
 
     private let client: HTTPClient
 
@@ -48,11 +56,11 @@ final class GithubService {
     private func map(_ data: Data, and response: HTTPURLResponse) -> GithubService.Result {
         guard
             response.statusCode == 200,
-            let _ = try? JSONDecoder().decode(Response.self, from: data)
+            let json = try? JSONDecoder().decode([Response].self, from: data)
         else {
             return .failure(.invalidData)
         }
-        return .success("")
+        return .success(json.map({ Stargazer(login: $0.login, avatarURL: $0.avatar_url) }))
     }
 }
 
@@ -139,6 +147,17 @@ class GithubService_Tests: XCTestCase {
         })
     }
 
+    func test_loadStargazers_deliversSuccessWithStargazersOn200HTTPResponseWithJSONStargazers() {
+        let (client, sut) = makeSUT()
+        let s1 = makeStargazer(login: "login-1", avatarURL: URL(string: "http://avatar-1.com")!)
+        let s2 = makeStargazer(login: "login-2", avatarURL: URL(string: "http://avatar-2.com")!)
+
+        expect(sut, toCompleteWith: .success([s1.stargazer, s2.stargazer])) {
+            let json = makeStargazersJSON([s1.json, s2.json])
+            client.complete(withStatusCode: 200, data: json)
+        }
+    }
+
     // MARK: - Helpers
 
     private func makeSUT() -> (client: HTTPClientSpy, sut: GithubService) {
@@ -148,9 +167,19 @@ class GithubService_Tests: XCTestCase {
         return (client, sut)
     }
 
-    private func makeStargazersJSON() -> Data {
-        let json = [String]()
-        return try! JSONSerialization.data(withJSONObject: json)
+    private func makeStargazer(login: String, avatarURL: URL) -> (stargazer: Stargazer, json: [String: Any]) {
+        let item = Stargazer(login: login, avatarURL: avatarURL)
+
+        let json = [
+            "login": login,
+            "avatar_url": avatarURL.absoluteString
+        ].compactMapValues { $0 }
+
+        return (item, json)
+    }
+
+    private func makeStargazersJSON(_ stargazers: [[String: Any]] = []) -> Data {
+        return try! JSONSerialization.data(withJSONObject: stargazers)
     }
 
     private func expect(_ sut: GithubService, toCompleteWith expectedResult: GithubService.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
@@ -158,6 +187,9 @@ class GithubService_Tests: XCTestCase {
 
         sut.loadStargazers(forUser: "user", withRepo: "repo") { receivedResult in
             switch (receivedResult, expectedResult) {
+
+            case let (.success(receivedStargazers), .success(expectedStargazers)):
+                XCTAssertEqual(receivedStargazers, expectedStargazers, file: file, line: line)
 
             case let (.failure(receivedError), .failure(expectedError)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)
