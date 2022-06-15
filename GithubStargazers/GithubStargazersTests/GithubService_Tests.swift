@@ -158,6 +158,15 @@ class GithubService_Tests: XCTestCase {
         }
     }
 
+    func test_loadStargazers_deliversSuccessWithoutStargazersOn200HTTPResponseWithEmptyJSON() {
+        let (client, sut) = makeSUT()
+
+        expect(sut, toCompleteWith: .success([])) {
+            let json = makeStargazersJSON([])
+            client.complete(withStatusCode: 200, data: json)
+        }
+    }
+
     // MARK: - Helpers
 
     private func makeSUT() -> (client: HTTPClientSpy, sut: GithubService) {
