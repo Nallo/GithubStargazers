@@ -8,7 +8,7 @@
 import XCTest
 import GithubStargazers
 
-class GithubStargazersEnd2EndTests: XCTestCase {
+final class GithubStargazersEnd2EndTests: XCTestCase {
 
     func test_URLSessionHTTPClient_completesWithGivenStatusCode() {
         let baseURL = URL(string: "https://httpbin.org/status")!

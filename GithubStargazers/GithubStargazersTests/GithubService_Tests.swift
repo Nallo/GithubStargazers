@@ -8,7 +8,7 @@
 import XCTest
 import GithubStargazers
 
-class GithubService_Tests: XCTestCase {
+final class GithubService_Tests: XCTestCase {
 
     func test_service_doesNotRequestUrlUponCreation() {
         let (client, _) = makeSUT()
