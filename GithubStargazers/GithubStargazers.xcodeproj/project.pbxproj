@@ -15,10 +15,19 @@
 		446C80282859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */; };
 		446C802A2859E680006E78F9 /* Stargazer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C80292859E680006E78F9 /* Stargazer.swift */; };
 		446C802C2859E6D5006E78F9 /* GithubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802B2859E6D5006E78F9 /* GithubService.swift */; };
+		44E9EAFE285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E9EAFD285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift */; };
+		44E9EAFF285B81B100BF6456 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446C8008285930E7006E78F9 /* GithubStargazers.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		446C8012285930E7006E78F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 446C7FFF285930E7006E78F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 446C8007285930E7006E78F9;
+			remoteInfo = GithubStargazers;
+		};
+		44E9EB00285B81B100BF6456 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 446C7FFF285930E7006E78F9 /* Project object */;
 			proxyType = 1;
@@ -37,6 +46,8 @@
 		446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		446C80292859E680006E78F9 /* Stargazer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stargazer.swift; sourceTree = "<group>"; };
 		446C802B2859E6D5006E78F9 /* GithubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService.swift; sourceTree = "<group>"; };
+		44E9EAFB285B81B100BF6456 /* GithubStargazersEnd2EndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubStargazersEnd2EndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		44E9EAFD285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubStargazersEnd2EndTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +66,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		44E9EAF8285B81B100BF6456 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44E9EAFF285B81B100BF6456 /* GithubStargazers.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -63,6 +82,7 @@
 			children = (
 				446C800A285930E7006E78F9 /* GithubStargazers */,
 				446C8014285930E8006E78F9 /* GithubStargazersTests */,
+				44E9EAFC285B81B100BF6456 /* GithubStargazersEnd2EndTests */,
 				446C8009285930E7006E78F9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,6 +92,7 @@
 			children = (
 				446C8008285930E7006E78F9 /* GithubStargazers.framework */,
 				446C8010285930E7006E78F9 /* GithubStargazersTests.xctest */,
+				44E9EAFB285B81B100BF6456 /* GithubStargazersEnd2EndTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +124,14 @@
 				446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		44E9EAFC285B81B100BF6456 /* GithubStargazersEnd2EndTests */ = {
+			isa = PBXGroup;
+			children = (
+				44E9EAFD285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift */,
+			);
+			path = GithubStargazersEnd2EndTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,6 +184,24 @@
 			productReference = 446C8010285930E7006E78F9 /* GithubStargazersTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		44E9EAFA285B81B100BF6456 /* GithubStargazersEnd2EndTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44E9EB04285B81B100BF6456 /* Build configuration list for PBXNativeTarget "GithubStargazersEnd2EndTests" */;
+			buildPhases = (
+				44E9EAF7285B81B100BF6456 /* Sources */,
+				44E9EAF8285B81B100BF6456 /* Frameworks */,
+				44E9EAF9285B81B100BF6456 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				44E9EB01285B81B100BF6456 /* PBXTargetDependency */,
+			);
+			name = GithubStargazersEnd2EndTests;
+			productName = GithubStargazersEnd2EndTests;
+			productReference = 44E9EAFB285B81B100BF6456 /* GithubStargazersEnd2EndTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -162,7 +209,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					446C8007285930E7006E78F9 = {
@@ -171,6 +218,9 @@
 					};
 					446C800F285930E7006E78F9 = {
 						CreatedOnToolsVersion = 13.2.1;
+					};
+					44E9EAFA285B81B100BF6456 = {
+						CreatedOnToolsVersion = 13.4.1;
 					};
 				};
 			};
@@ -189,6 +239,7 @@
 			targets = (
 				446C8007285930E7006E78F9 /* GithubStargazers */,
 				446C800F285930E7006E78F9 /* GithubStargazersTests */,
+				44E9EAFA285B81B100BF6456 /* GithubStargazersEnd2EndTests */,
 			);
 		};
 /* End PBXProject section */
@@ -202,6 +253,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		446C800E285930E7006E78F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44E9EAF9285B81B100BF6456 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -231,6 +289,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		44E9EAF7285B81B100BF6456 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44E9EAFE285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -238,6 +304,11 @@
 			isa = PBXTargetDependency;
 			target = 446C8007285930E7006E78F9 /* GithubStargazers */;
 			targetProxy = 446C8012285930E7006E78F9 /* PBXContainerItemProxy */;
+		};
+		44E9EB01285B81B100BF6456 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 446C8007285930E7006E78F9 /* GithubStargazers */;
+			targetProxy = 44E9EB00285B81B100BF6456 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -454,6 +525,36 @@
 			};
 			name = Release;
 		};
+		44E9EB02285B81B100BF6456 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H7TERFXEST;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.urmet.GithubStargazersEnd2EndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		44E9EB03285B81B100BF6456 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H7TERFXEST;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.urmet.GithubStargazersEnd2EndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -480,6 +581,15 @@
 			buildConfigurations = (
 				446C801E285930E8006E78F9 /* Debug */,
 				446C801F285930E8006E78F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44E9EB04285B81B100BF6456 /* Build configuration list for PBXNativeTarget "GithubStargazersEnd2EndTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44E9EB02285B81B100BF6456 /* Debug */,
+				44E9EB03285B81B100BF6456 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

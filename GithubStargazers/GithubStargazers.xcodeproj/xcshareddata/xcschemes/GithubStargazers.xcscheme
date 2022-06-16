@@ -50,6 +50,17 @@
                ReferencedContainer = "container:GithubStargazers.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "44E9EAFA285B81B100BF6456"
+               BuildableName = "GithubStargazersEnd2EndTests.xctest"
+               BlueprintName = "GithubStargazersEnd2EndTests"
+               ReferencedContainer = "container:GithubStargazers.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
