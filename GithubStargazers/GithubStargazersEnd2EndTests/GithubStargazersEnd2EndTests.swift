@@ -36,4 +36,24 @@ class GithubStargazersEnd2EndTests: XCTestCase {
         wait(for: [exp], timeout: 5.0)
     }
 
+    func test_URLSessionHTTPClient_completesWithGivenBodyResponse() {
+        let url = URL(string: "https://httpbin.org/base64/SFRUUEJJTiBpcyBhd2Vzb21l")!
+        let headers = ("accept", "text/plain")
+        let session = URLSession(configuration: .ephemeral)
+        let sut = URLSessionHTTPClient(session: session)
+
+        let exp = expectation(description: "wait for client completion")
+
+        sut.get(url: url, headers: headers) { result in
+            if let (data, _) = try? result.get() {
+                XCTAssertEqual("HTTPBIN is awesome", String(data: data, encoding: .utf8), "expected 'HTTPBIN is awesome' when getting \(url)")
+            } else {
+                XCTFail("expected 'HTTPBIN is awesome', got \(result) instead")
+            }
+            exp.fulfill()
+        }
+
+        wait(for: [exp], timeout: 5.0)
+    }
+
 }
