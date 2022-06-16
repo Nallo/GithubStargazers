@@ -17,6 +17,8 @@
 		446C802C2859E6D5006E78F9 /* GithubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802B2859E6D5006E78F9 /* GithubService.swift */; };
 		44E9EAFE285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E9EAFD285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift */; };
 		44E9EAFF285B81B100BF6456 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446C8008285930E7006E78F9 /* GithubStargazers.framework */; };
+		44E9EB2C285BC45200BF6456 /* GithubStargazersiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E9EB24285BC45200BF6456 /* GithubStargazersiOS.framework */; };
+		44E9EB32285BC45300BF6456 /* GithubStargazersiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 44E9EB26285BC45200BF6456 /* GithubStargazersiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,13 @@
 			remoteGlobalIDString = 446C8007285930E7006E78F9;
 			remoteInfo = GithubStargazers;
 		};
+		44E9EB2D285BC45200BF6456 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 446C7FFF285930E7006E78F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44E9EB23285BC45200BF6456;
+			remoteInfo = GithubStargazersiOS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +57,9 @@
 		446C802B2859E6D5006E78F9 /* GithubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService.swift; sourceTree = "<group>"; };
 		44E9EAFB285B81B100BF6456 /* GithubStargazersEnd2EndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubStargazersEnd2EndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E9EAFD285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubStargazersEnd2EndTests.swift; sourceTree = "<group>"; };
+		44E9EB24285BC45200BF6456 /* GithubStargazersiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GithubStargazersiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44E9EB26285BC45200BF6456 /* GithubStargazersiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GithubStargazersiOS.h; sourceTree = "<group>"; };
+		44E9EB2B285BC45200BF6456 /* GithubStargazersiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubStargazersiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +86,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		44E9EB21285BC45200BF6456 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44E9EB28285BC45200BF6456 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44E9EB2C285BC45200BF6456 /* GithubStargazersiOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -83,6 +110,8 @@
 				446C800A285930E7006E78F9 /* GithubStargazers */,
 				446C8014285930E8006E78F9 /* GithubStargazersTests */,
 				44E9EAFC285B81B100BF6456 /* GithubStargazersEnd2EndTests */,
+				44E9EB25285BC45200BF6456 /* GithubStargazersiOS */,
+				44E9EB2F285BC45200BF6456 /* GithubStargazersiOSTests */,
 				446C8009285930E7006E78F9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -93,6 +122,8 @@
 				446C8008285930E7006E78F9 /* GithubStargazers.framework */,
 				446C8010285930E7006E78F9 /* GithubStargazersTests.xctest */,
 				44E9EAFB285B81B100BF6456 /* GithubStargazersEnd2EndTests.xctest */,
+				44E9EB24285BC45200BF6456 /* GithubStargazersiOS.framework */,
+				44E9EB2B285BC45200BF6456 /* GithubStargazersiOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,6 +165,21 @@
 			path = GithubStargazersEnd2EndTests;
 			sourceTree = "<group>";
 		};
+		44E9EB25285BC45200BF6456 /* GithubStargazersiOS */ = {
+			isa = PBXGroup;
+			children = (
+				44E9EB26285BC45200BF6456 /* GithubStargazersiOS.h */,
+			);
+			path = GithubStargazersiOS;
+			sourceTree = "<group>";
+		};
+		44E9EB2F285BC45200BF6456 /* GithubStargazersiOSTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = GithubStargazersiOSTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -142,6 +188,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				446C8017285930E8006E78F9 /* GithubStargazers.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44E9EB1F285BC45200BF6456 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44E9EB32285BC45300BF6456 /* GithubStargazersiOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +256,42 @@
 			productReference = 44E9EAFB285B81B100BF6456 /* GithubStargazersEnd2EndTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		44E9EB23285BC45200BF6456 /* GithubStargazersiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44E9EB37285BC45300BF6456 /* Build configuration list for PBXNativeTarget "GithubStargazersiOS" */;
+			buildPhases = (
+				44E9EB1F285BC45200BF6456 /* Headers */,
+				44E9EB20285BC45200BF6456 /* Sources */,
+				44E9EB21285BC45200BF6456 /* Frameworks */,
+				44E9EB22285BC45200BF6456 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GithubStargazersiOS;
+			productName = GithubStargazersiOS;
+			productReference = 44E9EB24285BC45200BF6456 /* GithubStargazersiOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		44E9EB2A285BC45200BF6456 /* GithubStargazersiOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44E9EB38285BC45300BF6456 /* Build configuration list for PBXNativeTarget "GithubStargazersiOSTests" */;
+			buildPhases = (
+				44E9EB27285BC45200BF6456 /* Sources */,
+				44E9EB28285BC45200BF6456 /* Frameworks */,
+				44E9EB29285BC45200BF6456 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				44E9EB2E285BC45200BF6456 /* PBXTargetDependency */,
+			);
+			name = GithubStargazersiOSTests;
+			productName = GithubStargazersiOSTests;
+			productReference = 44E9EB2B285BC45200BF6456 /* GithubStargazersiOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -222,6 +312,12 @@
 					44E9EAFA285B81B100BF6456 = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
+					44E9EB23285BC45200BF6456 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					44E9EB2A285BC45200BF6456 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
 				};
 			};
 			buildConfigurationList = 446C8002285930E7006E78F9 /* Build configuration list for PBXProject "GithubStargazers" */;
@@ -240,6 +336,8 @@
 				446C8007285930E7006E78F9 /* GithubStargazers */,
 				446C800F285930E7006E78F9 /* GithubStargazersTests */,
 				44E9EAFA285B81B100BF6456 /* GithubStargazersEnd2EndTests */,
+				44E9EB23285BC45200BF6456 /* GithubStargazersiOS */,
+				44E9EB2A285BC45200BF6456 /* GithubStargazersiOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -260,6 +358,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		44E9EAF9285B81B100BF6456 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44E9EB22285BC45200BF6456 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44E9EB29285BC45200BF6456 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -297,6 +409,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		44E9EB20285BC45200BF6456 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44E9EB27285BC45200BF6456 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -309,6 +435,11 @@
 			isa = PBXTargetDependency;
 			target = 446C8007285930E7006E78F9 /* GithubStargazers */;
 			targetProxy = 44E9EB00285B81B100BF6456 /* PBXContainerItemProxy */;
+		};
+		44E9EB2E285BC45200BF6456 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44E9EB23285BC45200BF6456 /* GithubStargazersiOS */;
+			targetProxy = 44E9EB2D285BC45200BF6456 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -561,6 +692,104 @@
 			};
 			name = Release;
 		};
+		44E9EB33285BC45300BF6456 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = EWY7M8J6JS;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nallo.GithubStargazersiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		44E9EB34285BC45300BF6456 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = EWY7M8J6JS;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nallo.GithubStargazersiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		44E9EB35285BC45300BF6456 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EWY7M8J6JS;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nallo.GithubStargazersiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		44E9EB36285BC45300BF6456 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = EWY7M8J6JS;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nallo.GithubStargazersiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -596,6 +825,24 @@
 			buildConfigurations = (
 				44E9EB02285B81B100BF6456 /* Debug */,
 				44E9EB03285B81B100BF6456 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44E9EB37285BC45300BF6456 /* Build configuration list for PBXNativeTarget "GithubStargazersiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44E9EB33285BC45300BF6456 /* Debug */,
+				44E9EB34285BC45300BF6456 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44E9EB38285BC45300BF6456 /* Build configuration list for PBXNativeTarget "GithubStargazersiOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44E9EB35285BC45300BF6456 /* Debug */,
+				44E9EB36285BC45300BF6456 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
