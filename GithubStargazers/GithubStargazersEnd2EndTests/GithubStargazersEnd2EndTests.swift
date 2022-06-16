@@ -12,8 +12,7 @@ class GithubStargazersEnd2EndTests: XCTestCase {
 
     func test_URLSessionHTTPClient_completesWithGivenStatusCode() {
         let baseURL = URL(string: "https://httpbin.org/status")!
-        let session = URLSession(configuration: .ephemeral)
-        let sut = URLSessionHTTPClient(session: session)
+        let sut = makeSUT()
 
         let samples = [200, 300, 400, 500]
         let exp = expectation(description: "wait for client completion")
@@ -39,8 +38,7 @@ class GithubStargazersEnd2EndTests: XCTestCase {
     func test_URLSessionHTTPClient_completesWithGivenBodyResponse() {
         let url = URL(string: "https://httpbin.org/base64/SFRUUEJJTiBpcyBhd2Vzb21l")!
         let headers = ("accept", "text/plain")
-        let session = URLSession(configuration: .ephemeral)
-        let sut = URLSessionHTTPClient(session: session)
+        let sut = makeSUT()
 
         let exp = expectation(description: "wait for client completion")
 
@@ -54,6 +52,14 @@ class GithubStargazersEnd2EndTests: XCTestCase {
         }
 
         wait(for: [exp], timeout: 5.0)
+    }
+
+    // MARK: - Helper
+
+    private func makeSUT() -> URLSessionHTTPClient {
+        let session = URLSession(configuration: .ephemeral)
+        let sut = URLSessionHTTPClient(session: session)
+        return sut
     }
 
 }
