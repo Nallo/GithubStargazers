@@ -26,11 +26,12 @@ final class StargazersViewController: UITableViewController {
 
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
-        refreshControl?.beginRefreshing()
         load()
     }
 
     @objc private func load() {
+        refreshControl?.beginRefreshing()
+
         loader?.loadStargazers(forUser: user!, withRepo: repository!) { [weak self] _ in
             self?.refreshControl?.endRefreshing()
         }
@@ -54,21 +55,20 @@ class StargazersViewController_Tests: XCTestCase {
         XCTAssertEqual(3, loader.loadCallCount)
     }
 
-    func test_viewDidLoad_displaysLoadingIndicator() {
-        let (_, sut) = makeSUT()
-
-        sut.loadViewIfNeeded()
-
-        XCTAssertEqual(true, sut.refreshControl?.isRefreshing)
-    }
-
-    func test_viewDidLoad_hidesLoadingIndicatorWhenLoadingCompletes() {
+    func test_loadingIndicator_isVisibleWhileLoading() {
         let (loader, sut) = makeSUT()
 
         sut.loadViewIfNeeded()
-        loader.completeLoading()
+        XCTAssertTrue(sut.isShowingLoadingIndicator)
 
-        XCTAssertEqual(false, sut.refreshControl?.isRefreshing)
+        loader.completeLoading(at: 0)
+        XCTAssertFalse(sut.isShowingLoadingIndicator)
+
+        sut.triggerReloading()
+        XCTAssertTrue(sut.isShowingLoadingIndicator)
+
+        loader.completeLoading(at: 1)
+        XCTAssertFalse(sut.isShowingLoadingIndicator)
     }
 
     // MARK: - Helpers
@@ -110,6 +110,10 @@ private extension StargazersViewController {
 
     func triggerReloading() {
         refreshControl?.simulatePullToRefresh()
+    }
+
+    var isShowingLoadingIndicator: Bool {
+        return refreshControl?.isRefreshing == true
     }
 
 }
