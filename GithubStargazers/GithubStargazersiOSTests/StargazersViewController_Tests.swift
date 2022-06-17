@@ -26,6 +26,7 @@ final class StargazersViewController: UITableViewController {
 
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        refreshControl?.beginRefreshing()
         load()
     }
 
@@ -58,6 +59,14 @@ class StargazersViewController_Tests: XCTestCase {
         sut.refreshControl?.simulatePullToRefresh()
 
         XCTAssertEqual(2, loader.loadCallCount)
+    }
+
+    func test_viewDidLoad_displaysLoadingIndicator() {
+        let (_, sut) = makeSUT()
+
+        sut.loadViewIfNeeded()
+
+        XCTAssertEqual(true, sut.refreshControl?.isRefreshing)
     }
 
     // MARK: - Helpers
