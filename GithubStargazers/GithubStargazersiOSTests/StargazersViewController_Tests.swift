@@ -53,7 +53,8 @@ class StargazersViewController_Tests: XCTestCase {
         let repository = "any-repository"
         let loader = StargazersLoaderSpy()
         let sut = StargazersViewController(loader: loader, user: user, repository: repository)
-
+        trackForMemoryLeaks(loader)
+        trackForMemoryLeaks(sut)
         return (loader, sut)
     }
 
