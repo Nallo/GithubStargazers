@@ -31,7 +31,9 @@ final class StargazersViewController: UITableViewController {
     }
 
     @objc private func load() {
-        loader?.loadStargazers(forUser: user!, withRepo: repository!) { _ in }
+        loader?.loadStargazers(forUser: user!, withRepo: repository!) { [weak self] _ in
+            self?.refreshControl?.endRefreshing()
+        }
     }
 
 }
@@ -69,6 +71,15 @@ class StargazersViewController_Tests: XCTestCase {
         XCTAssertEqual(true, sut.refreshControl?.isRefreshing)
     }
 
+    func test_viewDidLoad_hidesLoadingIndicatorWhenLoadingCompletes() {
+        let (loader, sut) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        loader.completeLoading()
+
+        XCTAssertEqual(false, sut.refreshControl?.isRefreshing)
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (loader: StargazersLoaderSpy, sut: StargazersViewController) {
@@ -76,8 +87,8 @@ class StargazersViewController_Tests: XCTestCase {
         let repository = "any-repository"
         let loader = StargazersLoaderSpy()
         let sut = StargazersViewController(loader: loader, user: user, repository: repository)
-        trackForMemoryLeaks(loader)
-        trackForMemoryLeaks(sut)
+        trackForMemoryLeaks(loader, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
         return (loader, sut)
     }
 
@@ -85,10 +96,21 @@ class StargazersViewController_Tests: XCTestCase {
 
 class StargazersLoaderSpy: StargazersLoader {
 
-    private(set) var loadCallCount = 0
+    private var completions = [Completion]()
+    var loadCallCount: Int {
+        return completions.count
+    }
 
     func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping Completion) {
-        loadCallCount += 1
+        completions.append(completion)
+    }
+
+    func completeLoading(at index: Int = 0) {
+        guard index < completions.count else {
+            return XCTFail("cannot complete loading never made")
+        }
+
+        completions[index](.success([]))
     }
 
 }
