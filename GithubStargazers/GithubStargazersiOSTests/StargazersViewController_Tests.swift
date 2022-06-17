@@ -40,27 +40,18 @@ final class StargazersViewController: UITableViewController {
 
 class StargazersViewController_Tests: XCTestCase {
 
-    func test_init_doesNotTriggerLoad() {
-        let (loader, _) = makeSUT()
-
+    func test_loadStargazers_requestStargazersToLoader() {
+        let (loader, sut) = makeSUT()
         XCTAssertEqual(0, loader.loadCallCount)
-    }
-
-    func test_viewDidLoad_triggersStargazersLoad() {
-        let (loader, sut) = makeSUT()
 
         sut.loadViewIfNeeded()
-
         XCTAssertEqual(1, loader.loadCallCount)
-    }
 
-    func test_pullToRefresh_triggersStargazersLoad() {
-        let (loader, sut) = makeSUT()
-        sut.loadViewIfNeeded()
-
-        sut.refreshControl?.simulatePullToRefresh()
-
+        sut.triggerReloading()
         XCTAssertEqual(2, loader.loadCallCount)
+
+        sut.triggerReloading()
+        XCTAssertEqual(3, loader.loadCallCount)
     }
 
     func test_viewDidLoad_displaysLoadingIndicator() {
@@ -115,6 +106,14 @@ class StargazersLoaderSpy: StargazersLoader {
 
 }
 
+private extension StargazersViewController {
+
+    func triggerReloading() {
+        refreshControl?.simulatePullToRefresh()
+    }
+
+}
+
 private extension UIRefreshControl {
 
     func simulatePullToRefresh() {
@@ -124,4 +123,5 @@ private extension UIRefreshControl {
             })
         }
     }
+
 }
