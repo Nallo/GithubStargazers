@@ -7,10 +7,7 @@
 
 import Foundation
 
-public final class GithubService {
-
-    public typealias Result = Swift.Result<[Stargazer], GithubService.Error>
-    public typealias Completion = (Result) -> Void
+public final class GithubService: StargazersLoader {
 
     public enum Error: Swift.Error {
         case connectivity
