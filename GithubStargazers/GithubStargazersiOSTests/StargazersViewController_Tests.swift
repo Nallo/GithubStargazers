@@ -10,7 +10,7 @@ import GithubStargazers
 
 final class StargazersViewController {
 
-    init(service: GithubServiceSpy) {}
+    init(service: StargazersLoader) {}
 
 }
 
@@ -27,6 +27,11 @@ class StargazersViewController_Tests: XCTestCase {
 
 }
 
-class GithubServiceSpy {
+class GithubServiceSpy: StargazersLoader {
+
     private(set) var loadCallCount = 0
+
+    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping Completion) {
+    }
+
 }
