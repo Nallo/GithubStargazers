@@ -7,37 +7,7 @@
 
 import XCTest
 import GithubStargazers
-
-final class StargazersViewController: UITableViewController {
-
-    private var loader: StargazersLoader?
-    private var user: String?
-    private var repository: String?
-
-    convenience init(loader: StargazersLoader, user: String, repository: String) {
-        self.init()
-        self.loader = loader
-        self.user = user
-        self.repository = repository
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
-        load()
-    }
-
-    @objc private func load() {
-        refreshControl?.beginRefreshing()
-
-        loader?.loadStargazers(forUser: user!, withRepo: repository!) { [weak self] _ in
-            self?.refreshControl?.endRefreshing()
-        }
-    }
-
-}
+import GithubStargazersiOS
 
 class StargazersViewController_Tests: XCTestCase {
 

@@ -12,6 +12,7 @@
 		44682B2F285CBA4A009B3FD2 /* StargazersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44682B2E285CBA4A009B3FD2 /* StargazersLoader.swift */; };
 		44682B36285CC0D9009B3FD2 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446C8008285930E7006E78F9 /* GithubStargazers.framework */; };
 		44682B37285CC1F9009B3FD2 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */; };
+		44682B39285CCE3B009B3FD2 /* StargazersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44682B38285CCE3B009B3FD2 /* StargazersViewController.swift */; };
 		446C8011285930E7006E78F9 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446C8008285930E7006E78F9 /* GithubStargazers.framework */; };
 		446C8017285930E8006E78F9 /* GithubStargazers.h in Headers */ = {isa = PBXBuildFile; fileRef = 446C800B285930E7006E78F9 /* GithubStargazers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		446C8021285931D5006E78F9 /* GithubStargazersLoader_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C8020285931D5006E78F9 /* GithubStargazersLoader_Tests.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		44682B2C285CB3D4009B3FD2 /* StargazersViewController_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StargazersViewController_Tests.swift; sourceTree = "<group>"; };
 		44682B2E285CBA4A009B3FD2 /* StargazersLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StargazersLoader.swift; sourceTree = "<group>"; };
+		44682B38285CCE3B009B3FD2 /* StargazersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StargazersViewController.swift; sourceTree = "<group>"; };
 		446C8008285930E7006E78F9 /* GithubStargazers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GithubStargazers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		446C800B285930E7006E78F9 /* GithubStargazers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GithubStargazers.h; sourceTree = "<group>"; };
 		446C8010285930E7006E78F9 /* GithubStargazersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubStargazersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				44E9EB26285BC45200BF6456 /* GithubStargazersiOS.h */,
+				44682B38285CCE3B009B3FD2 /* StargazersViewController.swift */,
 			);
 			path = GithubStargazersiOS;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 					};
 					44E9EB23285BC45200BF6456 = {
 						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1340;
 					};
 					44E9EB2A285BC45200BF6456 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -434,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44682B39285CCE3B009B3FD2 /* StargazersViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +723,7 @@
 		44E9EB33285BC45300BF6456 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -740,6 +746,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -748,6 +755,7 @@
 		44E9EB34285BC45300BF6456 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -779,6 +787,7 @@
 		44E9EB35285BC45300BF6456 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -804,6 +813,7 @@
 		44E9EB36285BC45300BF6456 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
