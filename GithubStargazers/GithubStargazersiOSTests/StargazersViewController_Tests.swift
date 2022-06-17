@@ -43,32 +43,32 @@ class StargazersViewController_Tests: XCTestCase {
 
     func test_loadStargazers_requestStargazersToLoader() {
         let (loader, sut) = makeSUT()
-        XCTAssertEqual(0, loader.loadCallCount)
+        XCTAssertEqual(0, loader.loadCallCount, "expected no service loading before the view is loaded into memory")
 
         sut.loadViewIfNeeded()
-        XCTAssertEqual(1, loader.loadCallCount)
+        XCTAssertEqual(1, loader.loadCallCount, "expected loading once when the view is loaded into memory")
 
         sut.triggerReloading()
-        XCTAssertEqual(2, loader.loadCallCount)
+        XCTAssertEqual(2, loader.loadCallCount, "expected loading when user pull to refresh")
 
         sut.triggerReloading()
-        XCTAssertEqual(3, loader.loadCallCount)
+        XCTAssertEqual(3, loader.loadCallCount, "expected loading when user pull to refresh")
     }
 
     func test_loadingIndicator_isVisibleWhileLoading() {
         let (loader, sut) = makeSUT()
 
         sut.loadViewIfNeeded()
-        XCTAssertTrue(sut.isShowingLoadingIndicator)
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "expected to display loading indicator while service is loading")
 
         loader.completeLoading(at: 0)
-        XCTAssertFalse(sut.isShowingLoadingIndicator)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "expected to hide loading indicator when service completes loading")
 
         sut.triggerReloading()
-        XCTAssertTrue(sut.isShowingLoadingIndicator)
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "expected to display loading indicator when user trigger reloading")
 
         loader.completeLoading(at: 1)
-        XCTAssertFalse(sut.isShowingLoadingIndicator)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "expected to hide loading indicator when reloading completes")
     }
 
     // MARK: - Helpers
