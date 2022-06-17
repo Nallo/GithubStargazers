@@ -44,4 +44,11 @@ public final class StargazersViewController: UITableViewController {
         return model.count
     }
 
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellModel = model[indexPath.row]
+        let cell = StargazerCell()
+        cell.usernameLabel.text = cellModel.login
+        return cell
+    }
+
 }

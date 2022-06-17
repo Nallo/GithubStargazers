@@ -8,8 +8,8 @@
 import Foundation
 
 public struct Stargazer: Hashable {
-    let login: String
-    let avatarURL: URL
+    public let login: String
+    public let avatarURL: URL
 
     public init(login: String, avatarURL: URL) {
         self.login = login

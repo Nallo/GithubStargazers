@@ -48,14 +48,24 @@ class StargazersViewController_Tests: XCTestCase {
         let (loader, sut) = makeSUT()
 
         sut.loadViewIfNeeded()
-        XCTAssertEqual(0, sut.numberOfRenderedStargazers())
+        assertThat(sut, isRendering: [])
 
         loader.completeLoading(with: [stargazer0], at: 0)
-        XCTAssertEqual(1, sut.numberOfRenderedStargazers())
+        assertThat(sut, isRendering: [stargazer0])
 
         sut.triggerReloading()
         loader.completeLoading(with: [stargazer0, stargazer1, stargazer2], at: 1)
-        XCTAssertEqual(3, sut.numberOfRenderedStargazers())
+        assertThat(sut, isRendering: [stargazer0, stargazer1, stargazer2])
+    }
+
+    private func assertThat(_ sut: StargazersViewController, isRendering stargazers: [Stargazer], file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertEqual(stargazers.count, sut.numberOfRenderedStargazers(), "expected view controller to render \(stargazers.count) cells, got \(sut.numberOfRenderedStargazers()) instead", file: file, line: line)
+
+        stargazers.enumerated().forEach { idx, stargazer in
+            let view = sut.stargazerView(at: idx) as? StargazerCell
+            XCTAssertNotNil(view, "expected view controller to render view with \(stargazer)", file: file, line: line)
+            XCTAssertEqual(stargazer.login, view?.usernameText, "expected view controller to configure cell with \(stargazer.login), got \(view?.usernameText ?? "") instead", file: file, line: line)
+        }
     }
 
     // MARK: - Helpers
@@ -107,10 +117,22 @@ private extension StargazersViewController {
         return tableView.numberOfRows(inSection: 0)
     }
 
+    func stargazerView(at row: Int) -> UITableViewCell? {
+        let datasource = tableView.dataSource
+        let index = IndexPath(row: row, section: 0)
+        return datasource?.tableView(tableView, cellForRowAt: index)
+    }
+
     var isShowingLoadingIndicator: Bool {
         return refreshControl?.isRefreshing == true
     }
 
+}
+
+private extension StargazerCell {
+    var usernameText: String? {
+        return usernameLabel.text
+    }
 }
 
 private extension UIRefreshControl {
