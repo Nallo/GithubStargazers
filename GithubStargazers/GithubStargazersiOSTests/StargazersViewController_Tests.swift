@@ -17,7 +17,7 @@ final class StargazersViewController {
 class StargazersViewController_Tests: XCTestCase {
 
     func test_init_doesNotTriggerLoad() {
-        let service = GithubServiceSpy()
+        let service = StargazersLoaderSpy()
         let _ = StargazersViewController(service: service)
 
         XCTAssertEqual(0, service.loadCallCount)
@@ -27,7 +27,7 @@ class StargazersViewController_Tests: XCTestCase {
 
 }
 
-class GithubServiceSpy: StargazersLoader {
+class StargazersLoaderSpy: StargazersLoader {
 
     private(set) var loadCallCount = 0
 
