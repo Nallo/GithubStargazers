@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class GithubService: StargazersLoader {
+public final class GithubStargazersLoader: StargazersLoader {
 
     public enum Error: Swift.Error {
         case connectivity
@@ -25,7 +25,7 @@ public final class GithubService: StargazersLoader {
         self.client = client
     }
 
-    public func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping Completion) {
+    public func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping StargazersLoader.Completion) {
         let url = URL(string: "https://api.github.com/repos/")!
             .appendingPathComponent(user)
             .appendingPathComponent(repo)
@@ -41,17 +41,17 @@ public final class GithubService: StargazersLoader {
                 completion(self.map(data, and: response))
 
             case .failure:
-                completion(.failure(.connectivity))
+                completion(.failure(Error.connectivity))
             }
         }
     }
 
-    private func map(_ data: Data, and response: HTTPURLResponse) -> GithubService.Result {
+    private func map(_ data: Data, and response: HTTPURLResponse) -> GithubStargazersLoader.Result {
         guard
             response.statusCode == 200,
             let json = try? JSONDecoder().decode([Response].self, from: data)
         else {
-            return .failure(.invalidData)
+            return .failure(Error.invalidData)
         }
         return .success(json.map({ Stargazer(login: $0.login, avatarURL: $0.avatar_url) }))
     }

@@ -63,7 +63,7 @@ final class GithubService_Tests: XCTestCase {
     func test_loadStargazers_deliversConnectivityErrorOnClientError() {
         let (client, sut) = makeSUT()
 
-        expect(sut, toCompleteWith: .failure(.connectivity)) {
+        expect(sut, toCompleteWith: .failure(GithubStargazersLoader.Error.connectivity)) {
             let error = NSError(domain: "Error", code: -1)
             client.complete(with: error)
         }
@@ -75,7 +75,7 @@ final class GithubService_Tests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
 
         samples.enumerated().forEach { index, code in
-            expect(sut, toCompleteWith: .failure(.invalidData), when: {
+            expect(sut, toCompleteWith: .failure(GithubStargazersLoader.Error.invalidData), when: {
                 let json = makeStargazersJSON()
                 client.complete(withStatusCode: code, data: json, at: index)
             })
@@ -85,7 +85,7 @@ final class GithubService_Tests: XCTestCase {
     func test_loadStargazers_deliversInvalidDataErrorOn200HTTPResponseWithInvalidJSON() {
         let (client, sut) = makeSUT()
 
-        expect(sut, toCompleteWith: .failure(.invalidData), when: {
+        expect(sut, toCompleteWith: .failure(GithubStargazersLoader.Error.invalidData), when: {
             let invalidJSON = Data("invalid json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
         })
@@ -113,9 +113,9 @@ final class GithubService_Tests: XCTestCase {
 
     func test_loadStargazers_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
         let client = HTTPClientSpy()
-        var sut: GithubService? = GithubService(client)
+        var sut: GithubStargazersLoader? = GithubStargazersLoader(client)
 
-        var capturedResults = [GithubService.Result]()
+        var capturedResults = [GithubStargazersLoader.Result]()
         sut?.loadStargazers(forUser: "a-user", withRepo: "a-repo") { capturedResults.append($0) }
 
         sut = nil
@@ -126,9 +126,9 @@ final class GithubService_Tests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (client: HTTPClientSpy, sut: GithubService) {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (client: HTTPClientSpy, sut: GithubStargazersLoader) {
         let client = HTTPClientSpy()
-        let sut = GithubService(client)
+        let sut = GithubStargazersLoader(client)
         trackForMemoryLeaks(client, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (client, sut)
@@ -149,7 +149,7 @@ final class GithubService_Tests: XCTestCase {
         return try! JSONSerialization.data(withJSONObject: stargazers)
     }
 
-    private func expect(_ sut: GithubService, toCompleteWith expectedResult: GithubService.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(_ sut: GithubStargazersLoader, toCompleteWith expectedResult: GithubStargazersLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for client to complete")
 
         sut.loadStargazers(forUser: "user", withRepo: "repo") { receivedResult in
@@ -158,7 +158,7 @@ final class GithubService_Tests: XCTestCase {
             case let (.success(receivedStargazers), .success(expectedStargazers)):
                 XCTAssertEqual(receivedStargazers, expectedStargazers, file: file, line: line)
 
-            case let (.failure(receivedError), .failure(expectedError)):
+            case let (.failure(receivedError as GithubStargazersLoader.Error), .failure(expectedError as GithubStargazersLoader.Error)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)
 
             default:

@@ -17,7 +17,7 @@
 		446C802628593D67006E78F9 /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802528593D67006E78F9 /* HTTPClientSpy.swift */; };
 		446C80282859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */; };
 		446C802A2859E680006E78F9 /* Stargazer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C80292859E680006E78F9 /* Stargazer.swift */; };
-		446C802C2859E6D5006E78F9 /* GithubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802B2859E6D5006E78F9 /* GithubService.swift */; };
+		446C802C2859E6D5006E78F9 /* GithubStargazersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802B2859E6D5006E78F9 /* GithubStargazersLoader.swift */; };
 		44E9EAFE285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E9EAFD285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift */; };
 		44E9EAFF285B81B100BF6456 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446C8008285930E7006E78F9 /* GithubStargazers.framework */; };
 		44E9EB2C285BC45200BF6456 /* GithubStargazersiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E9EB24285BC45200BF6456 /* GithubStargazersiOS.framework */; };
@@ -59,7 +59,7 @@
 		446C802528593D67006E78F9 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		446C80292859E680006E78F9 /* Stargazer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stargazer.swift; sourceTree = "<group>"; };
-		446C802B2859E6D5006E78F9 /* GithubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService.swift; sourceTree = "<group>"; };
+		446C802B2859E6D5006E78F9 /* GithubStargazersLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubStargazersLoader.swift; sourceTree = "<group>"; };
 		44E9EAFB285B81B100BF6456 /* GithubStargazersEnd2EndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubStargazersEnd2EndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E9EAFD285B81B100BF6456 /* GithubStargazersEnd2EndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubStargazersEnd2EndTests.swift; sourceTree = "<group>"; };
 		44E9EB24285BC45200BF6456 /* GithubStargazersiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GithubStargazersiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,7 +139,7 @@
 				446C800B285930E7006E78F9 /* GithubStargazers.h */,
 				446C802228593D22006E78F9 /* HTTPClient.swift */,
 				446C80292859E680006E78F9 /* Stargazer.swift */,
-				446C802B2859E6D5006E78F9 /* GithubService.swift */,
+				446C802B2859E6D5006E78F9 /* GithubStargazersLoader.swift */,
 				44682B2E285CBA4A009B3FD2 /* StargazersLoader.swift */,
 			);
 			path = GithubStargazers;
@@ -396,7 +396,7 @@
 				446C802328593D22006E78F9 /* HTTPClient.swift in Sources */,
 				446C802A2859E680006E78F9 /* Stargazer.swift in Sources */,
 				44682B2F285CBA4A009B3FD2 /* StargazersLoader.swift in Sources */,
-				446C802C2859E6D5006E78F9 /* GithubService.swift in Sources */,
+				446C802C2859E6D5006E78F9 /* GithubStargazersLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
