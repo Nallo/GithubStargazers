@@ -8,16 +8,22 @@
 import UIKit
 import GithubStargazers
 
+public protocol AvatarsLoader {
+    func loadAvatar(from url: URL)
+}
+
 public final class StargazersViewController: UITableViewController {
 
-    private var loader: StargazersLoader?
+    private var avatarsLoader: AvatarsLoader?
+    private var stargazersLoader: StargazersLoader?
     private var user: String?
     private var repository: String?
     private var model = [Stargazer]()
 
-    public convenience init(loader: StargazersLoader, user: String, repository: String) {
+    public convenience init(avatarsLoader: AvatarsLoader, stargazersLoader: StargazersLoader, user: String, repository: String) {
         self.init()
-        self.loader = loader
+        self.avatarsLoader = avatarsLoader
+        self.stargazersLoader = stargazersLoader
         self.user = user
         self.repository = repository
     }
@@ -33,7 +39,7 @@ public final class StargazersViewController: UITableViewController {
     @objc private func load() {
         refreshControl?.beginRefreshing()
 
-        loader?.loadStargazers(forUser: user!, withRepo: repository!) { [weak self] result in
+        stargazersLoader?.loadStargazers(forUser: user!, withRepo: repository!) { [weak self] result in
             guard let self = self else { return }
             if let stargazers = try? result.get() {
                 self.model = stargazers
@@ -51,6 +57,7 @@ public final class StargazersViewController: UITableViewController {
         let cellModel = model[indexPath.row]
         let cell = StargazerCell()
         cell.usernameLabel.text = cellModel.login
+        avatarsLoader?.loadAvatar(from: cellModel.avatarURL)
         return cell
     }
 
