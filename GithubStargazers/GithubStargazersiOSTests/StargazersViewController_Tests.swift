@@ -41,6 +41,23 @@ class StargazersViewController_Tests: XCTestCase {
         XCTAssertFalse(sut.isShowingLoadingIndicator, "expected to hide loading indicator when reloading completes")
     }
 
+    func test_loadCompletion_rendersSuccessfullyLoadedStargazers() {
+        let stargazer0 = makeStargazer(username: "stargazer0")
+        let stargazer1 = makeStargazer(username: "stargazer1")
+        let stargazer2 = makeStargazer(username: "stargazer2")
+        let (loader, sut) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(0, sut.numberOfRenderedStargazers())
+
+        loader.completeLoading(with: [stargazer0], at: 0)
+        XCTAssertEqual(1, sut.numberOfRenderedStargazers())
+
+        sut.triggerReloading()
+        loader.completeLoading(with: [stargazer0, stargazer1, stargazer2], at: 1)
+        XCTAssertEqual(3, sut.numberOfRenderedStargazers())
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (loader: StargazersLoaderSpy, sut: StargazersViewController) {
@@ -51,6 +68,10 @@ class StargazersViewController_Tests: XCTestCase {
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (loader, sut)
+    }
+
+    private func makeStargazer(username: String, avatarURL url: URL = URL(string: "http://an-avatar-url.com")!) -> Stargazer {
+        return Stargazer(login: username, avatarURL: url)
     }
 
 }
@@ -66,12 +87,12 @@ class StargazersLoaderSpy: StargazersLoader {
         completions.append(completion)
     }
 
-    func completeLoading(at index: Int = 0) {
+    func completeLoading(with stargazers: [Stargazer] = [], at index: Int = 0) {
         guard index < completions.count else {
             return XCTFail("cannot complete loading never made")
         }
 
-        completions[index](.success([]))
+        completions[index](.success(stargazers))
     }
 
 }
@@ -80,6 +101,10 @@ private extension StargazersViewController {
 
     func triggerReloading() {
         refreshControl?.simulatePullToRefresh()
+    }
+
+    func numberOfRenderedStargazers() -> Int {
+        return tableView.numberOfRows(inSection: 0)
     }
 
     var isShowingLoadingIndicator: Bool {
