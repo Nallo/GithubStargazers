@@ -8,9 +8,9 @@
 import XCTest
 import GithubStargazers
 
-final class GithubService_Tests: XCTestCase {
+final class GithubStargazersLoader_Tests: XCTestCase {
 
-    func test_service_doesNotRequestUrlUponCreation() {
+    func test_loader_doesNotRequestUrlUponCreation() {
         let (client, _) = makeSUT()
 
         XCTAssertEqual([], client.requestedUrls, "expecting sut not to perform any requests upon creation")

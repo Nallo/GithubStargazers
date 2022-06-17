@@ -12,7 +12,7 @@
 		44682B2F285CBA4A009B3FD2 /* StargazersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44682B2E285CBA4A009B3FD2 /* StargazersLoader.swift */; };
 		446C8011285930E7006E78F9 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446C8008285930E7006E78F9 /* GithubStargazers.framework */; };
 		446C8017285930E8006E78F9 /* GithubStargazers.h in Headers */ = {isa = PBXBuildFile; fileRef = 446C800B285930E7006E78F9 /* GithubStargazers.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		446C8021285931D5006E78F9 /* GithubService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C8020285931D5006E78F9 /* GithubService_Tests.swift */; };
+		446C8021285931D5006E78F9 /* GithubStargazersLoader_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C8020285931D5006E78F9 /* GithubStargazersLoader_Tests.swift */; };
 		446C802328593D22006E78F9 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802228593D22006E78F9 /* HTTPClient.swift */; };
 		446C802628593D67006E78F9 /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C802528593D67006E78F9 /* HTTPClientSpy.swift */; };
 		446C80282859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */; };
@@ -54,7 +54,7 @@
 		446C8008285930E7006E78F9 /* GithubStargazers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GithubStargazers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		446C800B285930E7006E78F9 /* GithubStargazers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GithubStargazers.h; sourceTree = "<group>"; };
 		446C8010285930E7006E78F9 /* GithubStargazersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubStargazersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		446C8020285931D5006E78F9 /* GithubService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubService_Tests.swift; sourceTree = "<group>"; };
+		446C8020285931D5006E78F9 /* GithubStargazersLoader_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubStargazersLoader_Tests.swift; sourceTree = "<group>"; };
 		446C802228593D22006E78F9 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		446C802528593D67006E78F9 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				446C802428593D58006E78F9 /* Helpers */,
-				446C8020285931D5006E78F9 /* GithubService_Tests.swift */,
+				446C8020285931D5006E78F9 /* GithubStargazersLoader_Tests.swift */,
 			);
 			path = GithubStargazersTests;
 			sourceTree = "<group>";
@@ -404,7 +404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				446C8021285931D5006E78F9 /* GithubService_Tests.swift in Sources */,
+				446C8021285931D5006E78F9 /* GithubStargazersLoader_Tests.swift in Sources */,
 				446C802628593D67006E78F9 /* HTTPClientSpy.swift in Sources */,
 				446C80282859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
