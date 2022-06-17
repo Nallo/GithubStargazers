@@ -141,7 +141,7 @@ class StargazersLoaderSpy: StargazersLoader, AvatarsLoader {
 
     private(set) var loadedAvatarURLs = [URL]()
 
-    func loadAvatar(from url: URL) {
+    func loadAvatar(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         loadedAvatarURLs.append(url)
     }
 

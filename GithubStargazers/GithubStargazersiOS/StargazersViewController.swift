@@ -9,7 +9,7 @@ import UIKit
 import GithubStargazers
 
 public protocol AvatarsLoader {
-    func loadAvatar(from url: URL)
+    func loadAvatar(from url: URL, completion: @escaping (Result<Data, Error>) -> Void)
 }
 
 public final class StargazersViewController: UITableViewController {
@@ -57,7 +57,11 @@ public final class StargazersViewController: UITableViewController {
         let cellModel = model[indexPath.row]
         let cell = StargazerCell()
         cell.usernameLabel.text = cellModel.login
-        avatarsLoader?.loadAvatar(from: cellModel.avatarURL)
+        avatarsLoader?.loadAvatar(from: cellModel.avatarURL) { [weak cell] reult in
+            if let data = try? reult.get() {
+                cell?.avatarImageView.image = UIImage(data: data)
+            }
+        }
         return cell
     }
 
