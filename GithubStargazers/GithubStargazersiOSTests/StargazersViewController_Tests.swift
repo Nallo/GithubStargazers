@@ -8,7 +8,7 @@
 import XCTest
 import GithubStargazers
 
-final class StargazersViewController: UIViewController {
+final class StargazersViewController: UITableViewController {
 
     private var loader: StargazersLoader?
     private var user: String?
@@ -24,8 +24,13 @@ final class StargazersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loader?.loadStargazers(forUser: user!, withRepo: repository!) { _ in }
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        load()
+    }
 
+    @objc private func load() {
+        loader?.loadStargazers(forUser: user!, withRepo: repository!) { _ in }
     }
 
 }
@@ -44,6 +49,19 @@ class StargazersViewController_Tests: XCTestCase {
         sut.loadViewIfNeeded()
 
         XCTAssertEqual(1, loader.loadCallCount)
+    }
+
+    func test_pullToRefresh_triggersStargazersLoad() {
+        let (loader, sut) = makeSUT()
+        sut.loadViewIfNeeded()
+
+        sut.refreshControl?.allTargets.forEach { target in
+            sut.refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach({
+                (target as NSObject).perform(Selector($0))
+            })
+        }
+
+        XCTAssertEqual(2, loader.loadCallCount)
     }
 
     // MARK: - Helpers
