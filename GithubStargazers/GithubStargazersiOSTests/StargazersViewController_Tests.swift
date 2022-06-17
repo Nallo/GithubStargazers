@@ -33,26 +33,29 @@ final class StargazersViewController: UIViewController {
 class StargazersViewController_Tests: XCTestCase {
 
     func test_init_doesNotTriggerLoad() {
-        let user = "any-user"
-        let repository = "any-repository"
-        let service = StargazersLoaderSpy()
-        let _ = StargazersViewController(loader: service, user: user, repository: repository)
+        let (loader, _) = makeSUT()
 
-        XCTAssertEqual(0, service.loadCallCount)
+        XCTAssertEqual(0, loader.loadCallCount)
     }
 
     func test_viewDidLoad_triggersStargazersLoad() {
-        let user = "any-user"
-        let repository = "any-repository"
-        let service = StargazersLoaderSpy()
-        let sut = StargazersViewController(loader: service, user: user, repository: repository)
+        let (loader, sut) = makeSUT()
 
         sut.loadViewIfNeeded()
 
-        XCTAssertEqual(1, service.loadCallCount)
+        XCTAssertEqual(1, loader.loadCallCount)
     }
 
     // MARK: - Helpers
+
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (loader: StargazersLoaderSpy, sut: StargazersViewController) {
+        let user = "any-user"
+        let repository = "any-repository"
+        let loader = StargazersLoaderSpy()
+        let sut = StargazersViewController(loader: loader, user: user, repository: repository)
+
+        return (loader, sut)
+    }
 
 }
 
