@@ -37,7 +37,7 @@ class StargazersViewController_Tests: XCTestCase {
         sut.triggerReloading()
         XCTAssertTrue(sut.isShowingLoadingIndicator, "expected to display loading indicator when user trigger reloading")
 
-        loader.completeLoading(at: 1)
+        loader.completeLoadingWithError(at: 1)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "expected to hide loading indicator when reloading completes")
     }
 
@@ -55,6 +55,10 @@ class StargazersViewController_Tests: XCTestCase {
 
         sut.triggerReloading()
         loader.completeLoading(with: [stargazer0, stargazer1, stargazer2], at: 1)
+        assertThat(sut, isRendering: [stargazer0, stargazer1, stargazer2])
+
+        sut.triggerReloading()
+        loader.completeLoadingWithError(at: 2)
         assertThat(sut, isRendering: [stargazer0, stargazer1, stargazer2])
     }
 
@@ -103,6 +107,15 @@ class StargazersLoaderSpy: StargazersLoader {
         }
 
         completions[index](.success(stargazers))
+    }
+
+    func completeLoadingWithError(at index: Int = 0) {
+        guard index < completions.count else {
+            return XCTFail("cannot complete loading never made")
+        }
+
+        let error = NSError(domain: "any-error", code: -1)
+        completions[index](.failure(error))
     }
 
 }
