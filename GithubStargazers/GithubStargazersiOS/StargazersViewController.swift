@@ -46,8 +46,10 @@ public final class StargazersViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         cell.textLabel?.text = cellModel.login
         avatarsLoader?.loadAvatar(from: cellModel.avatarURL) { [weak cell] reult in
-            if let data = try? reult.get() {
-                cell?.imageView?.image = UIImage(data: data)
+            DispatchQueue.main.async {
+                if let data = try? reult.get() {
+                    cell?.imageView?.image = UIImage(data: data)
+                }
             }
         }
         return cell
