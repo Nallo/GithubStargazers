@@ -21,7 +21,9 @@ public final class GithubAvatarsLoader: AvatarsLoader {
     }
 
     public func loadAvatar(from url: URL, completion: @escaping AvatarsLoader.Completion) {
-        client.get(url: url, headers: ("","")) { [weak self] result in
+        let headers = ("Accept", "application/vnd.github.v3+json")
+
+        client.get(url: url, headers: headers) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
