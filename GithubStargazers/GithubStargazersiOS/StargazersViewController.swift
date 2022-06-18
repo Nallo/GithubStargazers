@@ -8,10 +8,6 @@
 import UIKit
 import GithubStargazers
 
-public protocol AvatarsLoader {
-    func loadAvatar(from url: URL, completion: @escaping (Result<Data, Error>) -> Void)
-}
-
 public final class StargazersViewController: UITableViewController {
 
     private var avatarsLoader: AvatarsLoader?
