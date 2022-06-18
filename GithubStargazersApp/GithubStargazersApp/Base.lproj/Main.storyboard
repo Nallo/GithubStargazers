@@ -11,7 +11,7 @@
         <!--List Github Stargazers-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="InputViewController" customModule="GithubStargazersApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -39,6 +39,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Display Stargazers"/>
+                                <connections>
+                                    <action selector="displayStargazersDidTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pTQ-Ec-AWl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -55,6 +58,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="List Github Stargazers" id="yz9-z0-WTZ"/>
+                    <connections>
+                        <outlet property="githubRepoTF" destination="MAe-be-9zY" id="QcD-DY-psC"/>
+                        <outlet property="githubUserTF" destination="6na-oH-E0c" id="fn1-Ol-4hy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

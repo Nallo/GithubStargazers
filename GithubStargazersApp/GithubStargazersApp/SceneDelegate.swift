@@ -19,21 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
-
-        let user = "Nallo"
-        let repository = "CarND-Traffic-Sign-Classifier-Project-Keras"
-        let client = URLSessionHTTPClient(session: .shared)
-        let avatarLoader = GithubAvatarsLoader(client: client)
-        let stargazerLoader = GithubStargazersLoader(client)
-
-        let stargazersViewController = StargazersUIComposer.stargazerController(
-            withAvatarLoader: avatarLoader,
-            stargazersLoader: stargazerLoader,
-            user: user,
-            repository: repository
-        )
-
-        window?.rootViewController = stargazersViewController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

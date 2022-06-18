@@ -16,6 +16,7 @@
 		44622826285E0CA500FA0B68 /* GithubStargazers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44622823285E0CA500FA0B68 /* GithubStargazers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44622827285E0CA500FA0B68 /* GithubStargazersiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44622824285E0CA500FA0B68 /* GithubStargazersiOS.framework */; };
 		44622828285E0CA500FA0B68 /* GithubStargazersiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44622824285E0CA500FA0B68 /* GithubStargazersiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4462282B285E690900FA0B68 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4462282A285E690900FA0B68 /* InputViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,7 @@
 		4462281D285E0B0B00FA0B68 /* GithubStargazersiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GithubStargazersiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44622823285E0CA500FA0B68 /* GithubStargazers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GithubStargazers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44622824285E0CA500FA0B68 /* GithubStargazersiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GithubStargazersiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4462282A285E690900FA0B68 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,12 +82,13 @@
 		44622806285E09C300FA0B68 /* GithubStargazersApp */ = {
 			isa = PBXGroup;
 			children = (
+				44622815285E09C500FA0B68 /* Info.plist */,
 				44622807285E09C300FA0B68 /* AppDelegate.swift */,
+				4462282A285E690900FA0B68 /* InputViewController.swift */,
 				44622809285E09C300FA0B68 /* SceneDelegate.swift */,
-				4462280D285E09C300FA0B68 /* Main.storyboard */,
 				44622810285E09C500FA0B68 /* Assets.xcassets */,
 				44622812285E09C500FA0B68 /* LaunchScreen.storyboard */,
-				44622815285E09C500FA0B68 /* Info.plist */,
+				4462280D285E09C300FA0B68 /* Main.storyboard */,
 			);
 			path = GithubStargazersApp;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4462282B285E690900FA0B68 /* InputViewController.swift in Sources */,
 				44622808285E09C300FA0B68 /* AppDelegate.swift in Sources */,
 				4462280A285E09C300FA0B68 /* SceneDelegate.swift in Sources */,
 			);
