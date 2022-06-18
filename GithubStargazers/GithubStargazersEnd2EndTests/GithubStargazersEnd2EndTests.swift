@@ -56,9 +56,10 @@ final class GithubStargazersEnd2EndTests: XCTestCase {
 
     // MARK: - Helper
 
-    private func makeSUT() -> URLSessionHTTPClient {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> URLSessionHTTPClient {
         let session = URLSession(configuration: .ephemeral)
         let sut = URLSessionHTTPClient(session: session)
+        trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
 
