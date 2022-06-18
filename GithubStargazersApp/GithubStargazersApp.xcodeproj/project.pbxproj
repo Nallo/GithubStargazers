@@ -9,25 +9,24 @@
 /* Begin PBXBuildFile section */
 		44622808285E09C300FA0B68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44622807285E09C300FA0B68 /* AppDelegate.swift */; };
 		4462280A285E09C300FA0B68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44622809285E09C300FA0B68 /* SceneDelegate.swift */; };
-		4462280C285E09C300FA0B68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4462280B285E09C300FA0B68 /* ViewController.swift */; };
 		4462280F285E09C300FA0B68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4462280D285E09C300FA0B68 /* Main.storyboard */; };
 		44622811285E09C500FA0B68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44622810285E09C500FA0B68 /* Assets.xcassets */; };
 		44622814285E09C500FA0B68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44622812285E09C500FA0B68 /* LaunchScreen.storyboard */; };
-		4462281E285E0B0B00FA0B68 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4462281C285E0B0B00FA0B68 /* GithubStargazers.framework */; };
-		4462281F285E0B0B00FA0B68 /* GithubStargazers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4462281C285E0B0B00FA0B68 /* GithubStargazers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		44622820285E0B0B00FA0B68 /* GithubStargazersiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4462281D285E0B0B00FA0B68 /* GithubStargazersiOS.framework */; };
-		44622821285E0B0B00FA0B68 /* GithubStargazersiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4462281D285E0B0B00FA0B68 /* GithubStargazersiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		44622825285E0CA500FA0B68 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44622823285E0CA500FA0B68 /* GithubStargazers.framework */; };
+		44622826285E0CA500FA0B68 /* GithubStargazers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44622823285E0CA500FA0B68 /* GithubStargazers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		44622827285E0CA500FA0B68 /* GithubStargazersiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44622824285E0CA500FA0B68 /* GithubStargazersiOS.framework */; };
+		44622828285E0CA500FA0B68 /* GithubStargazersiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44622824285E0CA500FA0B68 /* GithubStargazersiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		44622822285E0B0B00FA0B68 /* Embed Frameworks */ = {
+		44622829285E0CA500FA0B68 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4462281F285E0B0B00FA0B68 /* GithubStargazers.framework in Embed Frameworks */,
-				44622821285E0B0B00FA0B68 /* GithubStargazersiOS.framework in Embed Frameworks */,
+				44622826285E0CA500FA0B68 /* GithubStargazers.framework in Embed Frameworks */,
+				44622828285E0CA500FA0B68 /* GithubStargazersiOS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,13 +37,14 @@
 		44622804285E09C300FA0B68 /* GithubStargazersApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubStargazersApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44622807285E09C300FA0B68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44622809285E09C300FA0B68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4462280B285E09C300FA0B68 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4462280E285E09C300FA0B68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		44622810285E09C500FA0B68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44622813285E09C500FA0B68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44622815285E09C500FA0B68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4462281C285E0B0B00FA0B68 /* GithubStargazers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GithubStargazers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4462281D285E0B0B00FA0B68 /* GithubStargazersiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GithubStargazersiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44622823285E0CA500FA0B68 /* GithubStargazers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GithubStargazers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44622824285E0CA500FA0B68 /* GithubStargazersiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GithubStargazersiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +52,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4462281E285E0B0B00FA0B68 /* GithubStargazers.framework in Frameworks */,
-				44622820285E0B0B00FA0B68 /* GithubStargazersiOS.framework in Frameworks */,
+				44622825285E0CA500FA0B68 /* GithubStargazers.framework in Frameworks */,
+				44622827285E0CA500FA0B68 /* GithubStargazersiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +82,6 @@
 			children = (
 				44622807285E09C300FA0B68 /* AppDelegate.swift */,
 				44622809285E09C300FA0B68 /* SceneDelegate.swift */,
-				4462280B285E09C300FA0B68 /* ViewController.swift */,
 				4462280D285E09C300FA0B68 /* Main.storyboard */,
 				44622810285E09C500FA0B68 /* Assets.xcassets */,
 				44622812285E09C500FA0B68 /* LaunchScreen.storyboard */,
@@ -94,6 +93,8 @@
 		4462281B285E0B0B00FA0B68 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				44622823285E0CA500FA0B68 /* GithubStargazers.framework */,
+				44622824285E0CA500FA0B68 /* GithubStargazersiOS.framework */,
 				4462281C285E0B0B00FA0B68 /* GithubStargazers.framework */,
 				4462281D285E0B0B00FA0B68 /* GithubStargazersiOS.framework */,
 			);
@@ -110,7 +111,7 @@
 				44622800285E09C300FA0B68 /* Sources */,
 				44622801285E09C300FA0B68 /* Frameworks */,
 				44622802285E09C300FA0B68 /* Resources */,
-				44622822285E0B0B00FA0B68 /* Embed Frameworks */,
+				44622829285E0CA500FA0B68 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -172,7 +173,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4462280C285E09C300FA0B68 /* ViewController.swift in Sources */,
 				44622808285E09C300FA0B68 /* AppDelegate.swift in Sources */,
 				4462280A285E09C300FA0B68 /* SceneDelegate.swift in Sources */,
 			);
