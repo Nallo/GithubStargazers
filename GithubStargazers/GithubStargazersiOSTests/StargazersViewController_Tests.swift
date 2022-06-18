@@ -110,13 +110,13 @@ class StargazersLoaderSpy: StargazersLoader, AvatarsLoader {
 
     // MARK: - StargazersLoader
 
-    private var stargazersRequests = [Completion]()
+    private var stargazersRequests = [StargazersLoader.Completion]()
 
     var loadStargazersCallCount: Int {
         return stargazersRequests.count
     }
 
-    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping Completion) {
+    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping StargazersLoader.Completion) {
         stargazersRequests.append(completion)
     }
 
@@ -141,7 +141,7 @@ class StargazersLoaderSpy: StargazersLoader, AvatarsLoader {
 
     private(set) var loadedAvatarURLs = [URL]()
 
-    func loadAvatar(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
+    func loadAvatar(from url: URL, completion: @escaping AvatarsLoader.Completion) {
         loadedAvatarURLs.append(url)
     }
 

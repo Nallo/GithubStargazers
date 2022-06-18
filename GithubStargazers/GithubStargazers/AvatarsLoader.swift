@@ -8,5 +8,8 @@
 import Foundation
 
 public protocol AvatarsLoader {
-    func loadAvatar(from url: URL, completion: @escaping (Result<Data, Error>) -> Void)
+    typealias Result = Swift.Result<Data, Error>
+    typealias Completion = (Result) -> Void
+
+    func loadAvatar(from url: URL, completion: @escaping Completion)
 }

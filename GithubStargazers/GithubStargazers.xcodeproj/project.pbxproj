@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		446227F2285DF82600FA0B68 /* AvatarsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446227F1285DF82600FA0B68 /* AvatarsLoader.swift */; };
+		446227F4285DFD0A00FA0B68 /* GithubAvatarsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446227F3285DFD0A00FA0B68 /* GithubAvatarsLoader.swift */; };
 		44682B2B285CAD89009B3FD2 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446C80272859E510006E78F9 /* XCTestCase+MemoryLeakTracking.swift */; };
 		44682B2D285CB3D4009B3FD2 /* StargazersViewController_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44682B2C285CB3D4009B3FD2 /* StargazersViewController_Tests.swift */; };
 		44682B2F285CBA4A009B3FD2 /* StargazersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44682B2E285CBA4A009B3FD2 /* StargazersLoader.swift */; };
@@ -55,6 +56,7 @@
 
 /* Begin PBXFileReference section */
 		446227F1285DF82600FA0B68 /* AvatarsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarsLoader.swift; sourceTree = "<group>"; };
+		446227F3285DFD0A00FA0B68 /* GithubAvatarsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAvatarsLoader.swift; sourceTree = "<group>"; };
 		44682B2C285CB3D4009B3FD2 /* StargazersViewController_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StargazersViewController_Tests.swift; sourceTree = "<group>"; };
 		44682B2E285CBA4A009B3FD2 /* StargazersLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StargazersLoader.swift; sourceTree = "<group>"; };
 		44682B38285CCE3B009B3FD2 /* StargazersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StargazersViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				446C802B2859E6D5006E78F9 /* GithubStargazersLoader.swift */,
 				44682B2E285CBA4A009B3FD2 /* StargazersLoader.swift */,
 				446227F1285DF82600FA0B68 /* AvatarsLoader.swift */,
+				446227F3285DFD0A00FA0B68 /* GithubAvatarsLoader.swift */,
 			);
 			path = GithubStargazers;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				446C802A2859E680006E78F9 /* Stargazer.swift in Sources */,
 				446227F2285DF82600FA0B68 /* AvatarsLoader.swift in Sources */,
 				44682B2F285CBA4A009B3FD2 /* StargazersLoader.swift in Sources */,
+				446227F4285DFD0A00FA0B68 /* GithubAvatarsLoader.swift in Sources */,
 				446C802C2859E6D5006E78F9 /* GithubStargazersLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
