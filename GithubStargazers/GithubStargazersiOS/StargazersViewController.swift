@@ -10,19 +10,11 @@ import GithubStargazers
 
 public final class StargazersViewController: UITableViewController {
 
-    private var avatarsLoader: AvatarsLoader?
-    private var stargazersLoader: StargazersLoader?
-    private var user: String?
-    private var repository: String?
+    var avatarsLoader: AvatarsLoader?
+    var stargazersLoader: StargazersLoader?
+    var user: String?
+    var repository: String?
     private var model = [Stargazer]()
-
-    public convenience init(avatarsLoader: AvatarsLoader, stargazersLoader: StargazersLoader, user: String, repository: String) {
-        self.init()
-        self.avatarsLoader = avatarsLoader
-        self.stargazersLoader = stargazersLoader
-        self.user = user
-        self.repository = repository
-    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +43,7 @@ public final class StargazersViewController: UITableViewController {
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellModel = model[indexPath.row]
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         cell.textLabel?.text = cellModel.login
         avatarsLoader?.loadAvatar(from: cellModel.avatarURL) { [weak cell] reult in
             if let data = try? reult.get() {

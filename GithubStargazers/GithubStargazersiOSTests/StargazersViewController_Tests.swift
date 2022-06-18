@@ -82,7 +82,7 @@ class StargazersViewController_Tests: XCTestCase {
         XCTAssertEqual(stargazers.count, sut.numberOfRenderedStargazers(), "expected view controller to render \(stargazers.count) cells, got \(sut.numberOfRenderedStargazers()) instead", file: file, line: line)
 
         stargazers.enumerated().forEach { idx, stargazer in
-            let view = sut.stargazerView(at: idx) as? UITableViewCell
+            let view = sut.stargazerView(at: idx)
             XCTAssertNotNil(view, "expected view controller to render view with \(stargazer)", file: file, line: line)
             XCTAssertEqual(stargazer.login, view?.usernameText, "expected view controller to configure cell with \(stargazer.login), got \(view?.usernameText ?? "") instead", file: file, line: line)
         }
@@ -94,7 +94,7 @@ class StargazersViewController_Tests: XCTestCase {
         let user = "any-user"
         let repository = "any-repository"
         let loader = StargazersLoaderSpy()
-        let sut = StargazersViewController(avatarsLoader: loader, stargazersLoader: loader, user: user, repository: repository)
+        let sut = StargazersUIComposer.stargazerController(withAvatarLoader: loader, stargazersLoader: loader, user: user, repository: repository)
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (loader, sut)
