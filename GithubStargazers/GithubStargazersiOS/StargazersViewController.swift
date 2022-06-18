@@ -51,11 +51,11 @@ public final class StargazersViewController: UITableViewController {
 
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellModel = model[indexPath.row]
-        let cell = StargazerCell()
-        cell.usernameLabel.text = cellModel.login
+        let cell = UITableViewCell()
+        cell.textLabel?.text = cellModel.login
         avatarsLoader?.loadAvatar(from: cellModel.avatarURL) { [weak cell] reult in
             if let data = try? reult.get() {
-                cell?.avatarImageView.image = UIImage(data: data)
+                cell?.imageView?.image = UIImage(data: data)
             }
         }
         return cell
