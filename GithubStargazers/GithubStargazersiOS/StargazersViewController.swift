@@ -19,12 +19,10 @@ public final class StargazersViewController: UITableViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
         load()
     }
 
-    @objc private func load() {
+    @IBAction private func load() {
         refreshControl?.beginRefreshing()
 
         stargazersLoader?.loadStargazers(forUser: user!, withRepo: repository!) { [weak self] result in

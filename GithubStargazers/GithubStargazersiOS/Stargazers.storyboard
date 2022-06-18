@@ -43,6 +43,12 @@
                             <outlet property="delegate" destination="6a4-8X-fwe" id="K0U-6x-czg"/>
                         </connections>
                     </tableView>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="sQ0-At-fVw">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="load" destination="6a4-8X-fwe" eventType="valueChanged" id="sr5-RH-j1m"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yko-Oa-wnR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
