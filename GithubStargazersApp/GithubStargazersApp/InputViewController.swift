@@ -19,7 +19,26 @@ class InputViewController: UIViewController {
     }
 
     @IBAction func displayStargazersDidTap(_ sender: UIButton) {
-        displayStargazersViewController()
+        dismissKeyboard()
+
+        if isFormFilledCorrectly() {
+            displayStargazersViewController()
+        } else {
+            displayAlert()
+        }
+    }
+
+    private func dismissKeyboard() {
+        view.subviews.forEach { $0.resignFirstResponder() }
+    }
+
+    private func isFormFilledCorrectly() -> Bool {
+        guard
+            let user = githubUserTF.text, !user.isEmpty,
+            let repo = githubRepoTF.text, !repo.isEmpty
+        else { return false }
+
+        return true
     }
 
     private func displayStargazersViewController() {
@@ -39,4 +58,14 @@ class InputViewController: UIViewController {
         navigationController?.show(stargazersViewController, sender: self)
     }
 
+    private func displayAlert() {
+        let title = "Missing information"
+        let message = "You should provide a Github user and repo to display the stargazers"
+
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+
+        present(alert, animated: true)
+    }
 }
