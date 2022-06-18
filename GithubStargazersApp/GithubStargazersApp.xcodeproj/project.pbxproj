@@ -13,7 +13,26 @@
 		4462280F285E09C300FA0B68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4462280D285E09C300FA0B68 /* Main.storyboard */; };
 		44622811285E09C500FA0B68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44622810285E09C500FA0B68 /* Assets.xcassets */; };
 		44622814285E09C500FA0B68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44622812285E09C500FA0B68 /* LaunchScreen.storyboard */; };
+		4462281E285E0B0B00FA0B68 /* GithubStargazers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4462281C285E0B0B00FA0B68 /* GithubStargazers.framework */; };
+		4462281F285E0B0B00FA0B68 /* GithubStargazers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4462281C285E0B0B00FA0B68 /* GithubStargazers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		44622820285E0B0B00FA0B68 /* GithubStargazersiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4462281D285E0B0B00FA0B68 /* GithubStargazersiOS.framework */; };
+		44622821285E0B0B00FA0B68 /* GithubStargazersiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4462281D285E0B0B00FA0B68 /* GithubStargazersiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		44622822285E0B0B00FA0B68 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4462281F285E0B0B00FA0B68 /* GithubStargazers.framework in Embed Frameworks */,
+				44622821285E0B0B00FA0B68 /* GithubStargazersiOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		44622804285E09C300FA0B68 /* GithubStargazersApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubStargazersApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +43,8 @@
 		44622810285E09C500FA0B68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44622813285E09C500FA0B68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44622815285E09C500FA0B68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4462281C285E0B0B00FA0B68 /* GithubStargazers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GithubStargazers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4462281D285E0B0B00FA0B68 /* GithubStargazersiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GithubStargazersiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +52,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4462281E285E0B0B00FA0B68 /* GithubStargazers.framework in Frameworks */,
+				44622820285E0B0B00FA0B68 /* GithubStargazersiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +65,7 @@
 			children = (
 				44622806285E09C300FA0B68 /* GithubStargazersApp */,
 				44622805285E09C300FA0B68 /* Products */,
+				4462281B285E0B0B00FA0B68 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +91,15 @@
 			path = GithubStargazersApp;
 			sourceTree = "<group>";
 		};
+		4462281B285E0B0B00FA0B68 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4462281C285E0B0B00FA0B68 /* GithubStargazers.framework */,
+				4462281D285E0B0B00FA0B68 /* GithubStargazersiOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -77,6 +110,7 @@
 				44622800285E09C300FA0B68 /* Sources */,
 				44622801285E09C300FA0B68 /* Frameworks */,
 				44622802285E09C300FA0B68 /* Resources */,
+				44622822285E0B0B00FA0B68 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
