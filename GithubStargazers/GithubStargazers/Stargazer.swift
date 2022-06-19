@@ -7,6 +7,12 @@
 
 import Foundation
 
+public struct StargazersPage {
+    public let page: Int
+    public let isLast: Bool
+    public let stargazers: [Stargazer]
+}
+
 public struct Stargazer: Hashable {
     public let login: String
     public let avatarURL: URL
