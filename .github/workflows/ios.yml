@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
 
-  build-and-test-GithubStargazers-on-ios:
+  build-and-test-GithubStargazers:
     name: Build and Test GithubStargazers framework on iOS
     runs-on: macos-latest
 
