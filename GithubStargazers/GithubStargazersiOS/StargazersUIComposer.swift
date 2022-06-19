@@ -16,7 +16,7 @@ public final class StargazersUIComposer {
         let storyboard = UIStoryboard(name: "Stargazers", bundle: bundle)
 
         let stargazerController = storyboard.instantiateInitialViewController() as! StargazersViewController
-        stargazerController.avatarsLoader = avatarLoader
+        stargazerController.avatarsLoader = MainQueueDispatchDecorator(decoratee: avatarLoader)
         stargazerController.stargazersLoader = MainQueueDispatchDecorator(decoratee: stargazersLoader)
         stargazerController.user = user
         stargazerController.repository = repository
@@ -36,8 +36,21 @@ private final class MainQueueDispatchDecorator<T> {
 
 extension MainQueueDispatchDecorator: StargazersLoader where T == StargazersLoader {
 
-    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping Completion) {
+    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping StargazersLoader.Completion) {
         decoratee.loadStargazers(forUser: user, withRepo: repo) { result in
+            if Thread.isMainThread {
+                completion(result)
+            } else {
+                DispatchQueue.main.async { completion(result) }
+            }
+        }
+    }
+}
+
+extension MainQueueDispatchDecorator: AvatarsLoader where T == AvatarsLoader {
+
+    func loadAvatar(from url: URL, completion: @escaping AvatarsLoader.Completion) {
+        decoratee.loadAvatar(from: url) { result in
             if Thread.isMainThread {
                 completion(result)
             } else {
