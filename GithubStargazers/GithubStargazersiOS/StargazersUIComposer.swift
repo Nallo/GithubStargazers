@@ -25,13 +25,16 @@ public final class StargazersUIComposer {
     }
 }
 
-private final class MainQueueDispatchDecorator: StargazersLoader {
+private final class MainQueueDispatchDecorator<T> {
 
-    private let decoratee: StargazersLoader
+    private let decoratee: T
 
-    init(decoratee: StargazersLoader) {
+    init(decoratee: T) {
         self.decoratee = decoratee
     }
+}
+
+extension MainQueueDispatchDecorator: StargazersLoader where T == StargazersLoader {
 
     func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping Completion) {
         decoratee.loadStargazers(forUser: user, withRepo: repo) { result in
@@ -42,5 +45,4 @@ private final class MainQueueDispatchDecorator: StargazersLoader {
             }
         }
     }
-    
 }
