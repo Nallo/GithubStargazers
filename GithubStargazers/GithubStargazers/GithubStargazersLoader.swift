@@ -53,6 +53,12 @@ public final class GithubStargazersLoader: StargazersLoader {
         else {
             return .failure(Error.invalidData)
         }
-        return .success(json.map({ Stargazer(login: $0.login, avatarURL: $0.avatar_url) }))
+
+        return .success(
+            StargazersPage(
+                page: 1,
+                isLast: true,
+                stargazers: json.map { Stargazer(login: $0.login, avatarURL: $0.avatar_url) }
+            ))
     }
 }

@@ -27,8 +27,8 @@ public final class StargazersViewController: UITableViewController {
 
         stargazersLoader?.loadStargazers(forUser: user!, withRepo: repository!) { [weak self] result in
             guard let self = self else { return }
-            if let stargazers = try? result.get() {
-                self.model = stargazers
+            if let stargazersPage = try? result.get() {
+                self.model = stargazersPage.stargazers
                 self.tableView.reloadData()
             }
             self.refreshControl?.endRefreshing()
