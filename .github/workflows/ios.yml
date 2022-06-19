@@ -1,4 +1,4 @@
-name: iOS starter workflow
+name: GithubStargazers workflow
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-    name: Build and Test GithubStargazers framework
+  build-and-test-GithubStargazers:
+    name: Build and Test GithubStargazers framework on iOS
     runs-on: macos-latest
 
     steps:
@@ -27,6 +27,32 @@ jobs:
         env:
           workspace: ${{ 'GithubStargazers.xcworkspace' }}
           scheme: ${{ 'GithubStargazers' }}
+          platform: ${{ 'iOS Simulator' }}
+        run: |
+          # xcrun xctrace returns via stderr, not the expected stdout (see https://developer.apple.com/forums/thread/663959)
+          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
+          xcodebuild test-without-building -quiet -workspace "$workspace" -scheme "$scheme" -destination "platform=$platform,name=$device"
+
+  build-and-test-GithubStargazersiOS:
+    name: Build and Test GithubStargazersiOS framework
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        env:
+          workspace: ${{ 'GithubStargazers.xcworkspace' }}
+          scheme: ${{ 'GithubStargazersiOS' }}
+          platform: ${{ 'iOS Simulator' }}
+        run: |
+          # xcrun xctrace returns via stderr, not the expected stdout (see https://developer.apple.com/forums/thread/663959)
+          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
+          xcodebuild build-for-testing -quiet -workspace "$workspace" -scheme "$scheme" -destination "platform=$platform,name=$device"
+      - name: Test
+        env:
+          workspace: ${{ 'GithubStargazers.xcworkspace' }}
+          scheme: ${{ 'GithubStargazersiOS' }}
           platform: ${{ 'iOS Simulator' }}
         run: |
           # xcrun xctrace returns via stderr, not the expected stdout (see https://developer.apple.com/forums/thread/663959)
