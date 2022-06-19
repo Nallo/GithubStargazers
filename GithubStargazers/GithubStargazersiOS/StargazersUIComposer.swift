@@ -36,8 +36,8 @@ private final class MainQueueDispatchDecorator<T> {
 
 extension MainQueueDispatchDecorator: StargazersLoader where T == StargazersLoader {
 
-    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping StargazersLoader.Completion) {
-        decoratee.loadStargazers(forUser: user, withRepo: repo) { result in
+    func loadStargazers(forUser user: String, withRepo repo: String, page: Int, completion: @escaping StargazersLoader.Completion) {
+        decoratee.loadStargazers(forUser: user, withRepo: repo, page: page) { result in
             if Thread.isMainThread {
                 completion(result)
             } else {

@@ -11,5 +11,5 @@ public protocol StargazersLoader {
     typealias Result = Swift.Result<StargazersPage, Error>
     typealias Completion = (Result) -> Void
 
-    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping Completion)
+    func loadStargazers(forUser user: String, withRepo repo: String, page: Int, completion: @escaping Completion)
 }

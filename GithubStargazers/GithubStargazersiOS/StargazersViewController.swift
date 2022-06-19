@@ -25,7 +25,7 @@ public final class StargazersViewController: UITableViewController {
     @IBAction private func load() {
         refreshControl?.beginRefreshing()
 
-        stargazersLoader?.loadStargazers(forUser: user!, withRepo: repository!) { [weak self] result in
+        stargazersLoader?.loadStargazers(forUser: user!, withRepo: repository!, page: 1) { [weak self] result in
             guard let self = self else { return }
             if let stargazersPage = try? result.get() {
                 self.model = stargazersPage.stargazers

@@ -25,7 +25,8 @@ public final class GithubStargazersLoader: StargazersLoader {
         self.client = client
     }
 
-    public func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping StargazersLoader.Completion) {
+
+    public func loadStargazers(forUser user: String, withRepo repo: String, page: Int = 1, completion: @escaping StargazersLoader.Completion) {
         let url = URL(string: "https://api.github.com/repos/")!
             .appendingPathComponent(user)
             .appendingPathComponent(repo)

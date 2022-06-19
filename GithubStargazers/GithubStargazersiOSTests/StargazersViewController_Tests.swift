@@ -128,7 +128,7 @@ class StargazersLoaderSpy: StargazersLoader, AvatarsLoader {
         return stargazersRequests.count
     }
 
-    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping StargazersLoader.Completion) {
+    func loadStargazers(forUser user: String, withRepo repo: String, page: Int, completion: @escaping StargazersLoader.Completion) {
         stargazersRequests.append(completion)
     }
 
