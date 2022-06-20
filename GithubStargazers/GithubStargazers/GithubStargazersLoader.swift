@@ -59,7 +59,6 @@ public final class GithubStargazersLoader: StargazersLoader {
 
         return .success(
             StargazersPage(
-                page: 1,
                 isLast: isLastPage(response),
                 stargazers: json.map { Stargazer(login: $0.login, avatarURL: $0.avatar_url) }
             ))

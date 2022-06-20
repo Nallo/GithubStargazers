@@ -8,12 +8,10 @@
 import Foundation
 
 public struct StargazersPage: Hashable {
-    public let page: Int
     public let isLast: Bool
     public let stargazers: [Stargazer]
 
-    public init(page: Int, isLast: Bool, stargazers: [Stargazer]) {
-        self.page = page
+    public init(isLast: Bool, stargazers: [Stargazer]) {
         self.isLast = isLast
         self.stargazers = stargazers
     }

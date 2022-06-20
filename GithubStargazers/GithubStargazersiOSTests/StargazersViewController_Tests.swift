@@ -41,8 +41,8 @@ class StargazersViewController_Tests: XCTestCase {
         XCTAssertFalse(sut.isShowingLoadingIndicator, "expected to hide loading indicator when reloading completes")
     }
 
-    private func makePage(pageNumber: Int = 1, isLast: Bool = true, stargazers: [Stargazer]) -> StargazersPage {
-        return StargazersPage(page: pageNumber, isLast: isLast, stargazers: stargazers)
+    private func makePage(isLast: Bool = true, stargazers: [Stargazer]) -> StargazersPage {
+        return StargazersPage(isLast: isLast, stargazers: stargazers)
     }
 
     func test_loadCompletion_rendersSuccessfullyLoadedStargazers() {
@@ -132,7 +132,7 @@ class StargazersLoaderSpy: StargazersLoader, AvatarsLoader {
         stargazersRequests.append(completion)
     }
 
-    func completeLoading(with stargazersPage: StargazersPage = StargazersPage(page: 1, isLast: true, stargazers: []), at index: Int = 0) {
+    func completeLoading(with stargazersPage: StargazersPage = StargazersPage(isLast: true, stargazers: []), at index: Int = 0) {
         guard index < stargazersRequests.count else {
             return XCTFail("cannot complete loading never made")
         }

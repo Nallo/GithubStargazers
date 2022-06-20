@@ -97,7 +97,7 @@ final class GithubStargazersLoader_Tests: XCTestCase {
         let s2 = makeStargazer(login: "login-2", avatarURL: URL(string: "http://avatar-2.com")!)
         let headers = ["link": "<http://any-url.com>; rel=\"next\", <http://any-url.com>; rel=\"last\""]
 
-        expect(sut, toCompleteWith: .success(StargazersPage(page: 1, isLast: false, stargazers: [s1.stargazer, s2.stargazer]))) {
+        expect(sut, toCompleteWith: .success(StargazersPage(isLast: false, stargazers: [s1.stargazer, s2.stargazer]))) {
             let json = makeStargazersJSON([s1.json, s2.json])
             client.complete(withStatusCode: 200, data: json, headers: headers)
         }
@@ -106,7 +106,7 @@ final class GithubStargazersLoader_Tests: XCTestCase {
     func test_loadStargazers_deliversSuccessWithoutStargazersOn200HTTPResponseWithEmptyJSON() {
         let (client, sut) = makeSUT()
 
-        expect(sut, toCompleteWith: .success(StargazersPage(page: 1, isLast: true, stargazers: []))) {
+        expect(sut, toCompleteWith: .success(StargazersPage(isLast: true, stargazers: []))) {
             let json = makeStargazersJSON([])
             client.complete(withStatusCode: 200, data: json)
         }
@@ -157,7 +157,6 @@ final class GithubStargazersLoader_Tests: XCTestCase {
             switch (receivedResult, expectedResult) {
 
             case let (.success(receivedPage), .success(expectedPage)):
-                XCTAssertEqual(receivedPage.page, expectedPage.page, "expected page \(expectedPage.page), got \(receivedPage.page) instead", file: file, line: line)
                 XCTAssertEqual(receivedPage.isLast, expectedPage.isLast, "expected isLast page to be \(expectedPage.isLast), got \(receivedPage.isLast) instead", file: file, line: line)
                 XCTAssertEqual(receivedPage.stargazers, expectedPage.stargazers, "expected page with \(expectedPage.stargazers) stargazers, got \(receivedPage.stargazers) instead", file: file, line: line)
 
