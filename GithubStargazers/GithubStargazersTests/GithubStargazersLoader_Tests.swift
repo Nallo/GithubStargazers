@@ -23,13 +23,13 @@ final class GithubStargazersLoader_Tests: XCTestCase {
         let otherRepo = "other-repo"
         let (client, sut) = makeSUT()
 
-        sut.loadStargazers(forUser: user, withRepo: repo) { _ in }
-        sut.loadStargazers(forUser: otherUser, withRepo: otherRepo) { _ in }
+        sut.loadStargazers(forUser: user, withRepo: repo, page: 1) { _ in }
+        sut.loadStargazers(forUser: otherUser, withRepo: otherRepo, page: 2) { _ in }
 
         XCTAssertEqual(
             [
-                "https://api.github.com/repos/\(user)/\(repo)/stargazers",
-                "https://api.github.com/repos/\(otherUser)/\(otherRepo)/stargazers"
+                "https://api.github.com/repos/\(user)/\(repo)/stargazers?page=1",
+                "https://api.github.com/repos/\(otherUser)/\(otherRepo)/stargazers?page=2"
             ],
             client.requestedUrls,
             "expecting sut to hit github endpoint every time loadStargazers is invoked"
@@ -41,10 +41,10 @@ final class GithubStargazersLoader_Tests: XCTestCase {
         let repo = "a repo"
         let (client, sut) = makeSUT()
 
-        sut.loadStargazers(forUser: user, withRepo: repo) { _ in }
+        sut.loadStargazers(forUser: user, withRepo: repo, page: 1) { _ in }
 
         XCTAssertEqual(
-            ["https://api.github.com/repos/\(user)/\(repo)/stargazers".replacingOccurrences(of: " ", with: "%20")],
+            ["https://api.github.com/repos/\(user)/\(repo)/stargazers?page=1".replacingOccurrences(of: " ", with: "%20")],
             client.requestedUrls,
             "expecting sut to hit github endpoint escaping spaces and special chars"
         )

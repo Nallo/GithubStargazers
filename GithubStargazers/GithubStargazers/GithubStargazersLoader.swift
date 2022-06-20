@@ -27,10 +27,12 @@ public final class GithubStargazersLoader: StargazersLoader {
 
 
     public func loadStargazers(forUser user: String, withRepo repo: String, page: Int = 1, completion: @escaping StargazersLoader.Completion) {
-        let url = URL(string: "https://api.github.com/repos/")!
-            .appendingPathComponent(user)
-            .appendingPathComponent(repo)
-            .appendingPathComponent("stargazers")
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "api.github.com"
+        urlComponents.path = "/repos/\(user)/\(repo)/stargazers"
+        urlComponents.queryItems = [URLQueryItem(name: "page", value: "\(page)")]
+        let url = URL(string: urlComponents.string!)!
         let headers = ("Accept", "application/vnd.github.v3+json")
 
         client.get(url: url, headers: headers) { [weak self] result in
