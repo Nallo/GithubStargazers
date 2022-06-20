@@ -60,8 +60,16 @@ public final class GithubStargazersLoader: StargazersLoader {
         return .success(
             StargazersPage(
                 page: 1,
-                isLast: true,
+                isLast: isLastPage(response),
                 stargazers: json.map { Stargazer(login: $0.login, avatarURL: $0.avatar_url) }
             ))
+    }
+
+    private func isLastPage(_ response: HTTPURLResponse) -> Bool {
+        guard let linkHeaders = response.allHeaderFields["Link"] as? String else {
+            return true
+        }
+
+        return !linkHeaders.contains("rel=\"last\"")
     }
 }
