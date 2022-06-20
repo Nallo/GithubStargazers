@@ -23,13 +23,13 @@ final class GithubStargazersLoader_Tests: XCTestCase {
         let otherRepo = "other-repo"
         let (client, sut) = makeSUT()
 
-        sut.loadStargazers(forUser: user, withRepo: repo) { _ in }
-        sut.loadStargazers(forUser: otherUser, withRepo: otherRepo) { _ in }
+        sut.loadStargazers(forUser: user, withRepo: repo, page: 1) { _ in }
+        sut.loadStargazers(forUser: otherUser, withRepo: otherRepo, page: 2) { _ in }
 
         XCTAssertEqual(
             [
-                "https://api.github.com/repos/\(user)/\(repo)/stargazers",
-                "https://api.github.com/repos/\(otherUser)/\(otherRepo)/stargazers"
+                "https://api.github.com/repos/\(user)/\(repo)/stargazers?page=1",
+                "https://api.github.com/repos/\(otherUser)/\(otherRepo)/stargazers?page=2"
             ],
             client.requestedUrls,
             "expecting sut to hit github endpoint every time loadStargazers is invoked"
@@ -41,10 +41,10 @@ final class GithubStargazersLoader_Tests: XCTestCase {
         let repo = "a repo"
         let (client, sut) = makeSUT()
 
-        sut.loadStargazers(forUser: user, withRepo: repo) { _ in }
+        sut.loadStargazers(forUser: user, withRepo: repo, page: 1) { _ in }
 
         XCTAssertEqual(
-            ["https://api.github.com/repos/\(user)/\(repo)/stargazers".replacingOccurrences(of: " ", with: "%20")],
+            ["https://api.github.com/repos/\(user)/\(repo)/stargazers?page=1".replacingOccurrences(of: " ", with: "%20")],
             client.requestedUrls,
             "expecting sut to hit github endpoint escaping spaces and special chars"
         )
@@ -91,21 +91,22 @@ final class GithubStargazersLoader_Tests: XCTestCase {
         })
     }
 
-    func test_loadStargazers_deliversSuccessWithStargazersOn200HTTPResponseWithJSONStargazers() {
+    func test_loadStargazers_deliversSuccessWithStargazersAndMorePagesToFetchOn200HTTPResponseWithJSONStargazers() {
         let (client, sut) = makeSUT()
         let s1 = makeStargazer(login: "login-1", avatarURL: URL(string: "http://avatar-1.com")!)
         let s2 = makeStargazer(login: "login-2", avatarURL: URL(string: "http://avatar-2.com")!)
+        let headers = ["link": "<http://any-url.com>; rel=\"next\", <http://any-url.com>; rel=\"last\""]
 
-        expect(sut, toCompleteWith: .success([s1.stargazer, s2.stargazer])) {
+        expect(sut, toCompleteWith: .success(StargazersPage(isLast: false, stargazers: [s1.stargazer, s2.stargazer]))) {
             let json = makeStargazersJSON([s1.json, s2.json])
-            client.complete(withStatusCode: 200, data: json)
+            client.complete(withStatusCode: 200, data: json, headers: headers)
         }
     }
 
     func test_loadStargazers_deliversSuccessWithoutStargazersOn200HTTPResponseWithEmptyJSON() {
         let (client, sut) = makeSUT()
 
-        expect(sut, toCompleteWith: .success([])) {
+        expect(sut, toCompleteWith: .success(StargazersPage(isLast: true, stargazers: []))) {
             let json = makeStargazersJSON([])
             client.complete(withStatusCode: 200, data: json)
         }
@@ -155,8 +156,9 @@ final class GithubStargazersLoader_Tests: XCTestCase {
         sut.loadStargazers(forUser: "user", withRepo: "repo") { receivedResult in
             switch (receivedResult, expectedResult) {
 
-            case let (.success(receivedStargazers), .success(expectedStargazers)):
-                XCTAssertEqual(receivedStargazers, expectedStargazers, file: file, line: line)
+            case let (.success(receivedPage), .success(expectedPage)):
+                XCTAssertEqual(receivedPage.isLast, expectedPage.isLast, "expected isLast page to be \(expectedPage.isLast), got \(receivedPage.isLast) instead", file: file, line: line)
+                XCTAssertEqual(receivedPage.stargazers, expectedPage.stargazers, "expected page with \(expectedPage.stargazers) stargazers, got \(receivedPage.stargazers) instead", file: file, line: line)
 
             case let (.failure(receivedError as GithubStargazersLoader.Error), .failure(expectedError as GithubStargazersLoader.Error)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)

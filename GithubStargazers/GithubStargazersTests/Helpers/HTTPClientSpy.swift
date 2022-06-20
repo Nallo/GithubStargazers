@@ -20,7 +20,7 @@ class HTTPClientSpy: HTTPClient {
         completions.append(completion)
     }
 
-    func complete(withStatusCode code: Int, data: Data, at index: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
+    func complete(withStatusCode code: Int, data: Data, headers: [String: String] = [:], at index: Int = 0, file: StaticString = #filePath, line: UInt = #line) {
         guard index < completions.count else {
             return XCTFail("Can't complete request never made", file: file, line: line)
         }
@@ -29,7 +29,7 @@ class HTTPClientSpy: HTTPClient {
             url: URL(string: requestedUrls[index])!,
             statusCode: code,
             httpVersion: nil,
-            headerFields: nil
+            headerFields: headers
         )!
 
         completions[index](.success((data, response)))

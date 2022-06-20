@@ -25,11 +25,14 @@ public final class GithubStargazersLoader: StargazersLoader {
         self.client = client
     }
 
-    public func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping StargazersLoader.Completion) {
-        let url = URL(string: "https://api.github.com/repos/")!
-            .appendingPathComponent(user)
-            .appendingPathComponent(repo)
-            .appendingPathComponent("stargazers")
+
+    public func loadStargazers(forUser user: String, withRepo repo: String, page: Int = 1, completion: @escaping StargazersLoader.Completion) {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "api.github.com"
+        urlComponents.path = "/repos/\(user)/\(repo)/stargazers"
+        urlComponents.queryItems = [URLQueryItem(name: "page", value: "\(page)")]
+        let url = URL(string: urlComponents.string!)!
         let headers = ("Accept", "application/vnd.github.v3+json")
 
         client.get(url: url, headers: headers) { [weak self] result in
@@ -53,6 +56,19 @@ public final class GithubStargazersLoader: StargazersLoader {
         else {
             return .failure(Error.invalidData)
         }
-        return .success(json.map({ Stargazer(login: $0.login, avatarURL: $0.avatar_url) }))
+
+        return .success(
+            StargazersPage(
+                isLast: isLastPage(response),
+                stargazers: json.map { Stargazer(login: $0.login, avatarURL: $0.avatar_url) }
+            ))
+    }
+
+    private func isLastPage(_ response: HTTPURLResponse) -> Bool {
+        guard let linkHeaders = response.allHeaderFields["Link"] as? String else {
+            return true
+        }
+
+        return !linkHeaders.contains("rel=\"last\"")
     }
 }

@@ -41,34 +41,44 @@ class StargazersViewController_Tests: XCTestCase {
         XCTAssertFalse(sut.isShowingLoadingIndicator, "expected to hide loading indicator when reloading completes")
     }
 
+    private func makePage(isLast: Bool = true, stargazers: [Stargazer]) -> StargazersPage {
+        return StargazersPage(isLast: isLast, stargazers: stargazers)
+    }
+
     func test_loadCompletion_rendersSuccessfullyLoadedStargazers() {
         let stargazer0 = makeStargazer(username: "stargazer0")
         let stargazer1 = makeStargazer(username: "stargazer1")
         let stargazer2 = makeStargazer(username: "stargazer2")
+
+        let pageWithoutStargazers = makePage(stargazers: [])
+        let pageWithOneStargazer = makePage(stargazers: [stargazer0])
+        let pageWithThreeStargazers = makePage(stargazers: [stargazer0, stargazer1, stargazer2])
+
         let (loader, sut) = makeSUT()
 
         sut.loadViewIfNeeded()
-        assertThat(sut, isRendering: [])
+        assertThat(sut, isRendering: pageWithoutStargazers)
 
-        loader.completeLoading(with: [stargazer0], at: 0)
-        assertThat(sut, isRendering: [stargazer0])
+        loader.completeLoading(with: pageWithOneStargazer, at: 0)
+        assertThat(sut, isRendering: pageWithOneStargazer)
 
         sut.triggerReloading()
-        loader.completeLoading(with: [stargazer0, stargazer1, stargazer2], at: 1)
-        assertThat(sut, isRendering: [stargazer0, stargazer1, stargazer2])
+        loader.completeLoading(with: pageWithThreeStargazers, at: 1)
+        assertThat(sut, isRendering: pageWithThreeStargazers)
 
         sut.triggerReloading()
         loader.completeLoadingWithError(at: 2)
-        assertThat(sut, isRendering: [stargazer0, stargazer1, stargazer2])
+        assertThat(sut, isRendering: pageWithThreeStargazers)
     }
 
     func test_avatarImageView_loadsImageURLWhenVisible() {
         let stargazer0 = makeStargazer(avatarURL: URL(string: "http://0-avatar-url.com")!)
         let stargazer1 = makeStargazer(avatarURL: URL(string: "http://1-avatar-url.com")!)
+        let page = makePage(stargazers: [stargazer0, stargazer1])
         let (loader, sut) = makeSUT()
 
         sut.loadViewIfNeeded()
-        loader.completeLoading(with: [stargazer0, stargazer1], at: 0)
+        loader.completeLoading(with: page, at: 0)
         XCTAssertEqual([], loader.loadedAvatarURLs, "expected no avatars are loaded until cell is visible")
 
         sut.simulateAvatarViewVisible(at: 0)
@@ -78,7 +88,9 @@ class StargazersViewController_Tests: XCTestCase {
         XCTAssertEqual([stargazer0.avatarURL, stargazer1.avatarURL], loader.loadedAvatarURLs, "expected first and second avatars loaded when second cell is visible")
     }
 
-    private func assertThat(_ sut: StargazersViewController, isRendering stargazers: [Stargazer], file: StaticString = #filePath, line: UInt = #line) {
+    private func assertThat(_ sut: StargazersViewController, isRendering stargazersPage: StargazersPage, file: StaticString = #filePath, line: UInt = #line) {
+        let stargazers = stargazersPage.stargazers
+
         XCTAssertEqual(stargazers.count, sut.numberOfRenderedStargazers(), "expected view controller to render \(stargazers.count) cells, got \(sut.numberOfRenderedStargazers()) instead", file: file, line: line)
 
         stargazers.enumerated().forEach { idx, stargazer in
@@ -116,16 +128,16 @@ class StargazersLoaderSpy: StargazersLoader, AvatarsLoader {
         return stargazersRequests.count
     }
 
-    func loadStargazers(forUser user: String, withRepo repo: String, completion: @escaping StargazersLoader.Completion) {
+    func loadStargazers(forUser user: String, withRepo repo: String, page: Int, completion: @escaping StargazersLoader.Completion) {
         stargazersRequests.append(completion)
     }
 
-    func completeLoading(with stargazers: [Stargazer] = [], at index: Int = 0) {
+    func completeLoading(with stargazersPage: StargazersPage = StargazersPage(isLast: true, stargazers: []), at index: Int = 0) {
         guard index < stargazersRequests.count else {
             return XCTFail("cannot complete loading never made")
         }
 
-        stargazersRequests[index](.success(stargazers))
+        stargazersRequests[index](.success(stargazersPage))
     }
 
     func completeLoadingWithError(at index: Int = 0) {

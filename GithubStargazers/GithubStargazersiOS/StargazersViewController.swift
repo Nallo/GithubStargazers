@@ -14,7 +14,11 @@ public final class StargazersViewController: UITableViewController {
     var stargazersLoader: StargazersLoader?
     var user: String?
     var repository: String?
+
     private var model = [Stargazer]()
+    private var isLastPage = true
+    private var isLoadingNewPage = false
+    private var currentLoadedPage = 1
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +29,16 @@ public final class StargazersViewController: UITableViewController {
     @IBAction private func load() {
         refreshControl?.beginRefreshing()
 
-        stargazersLoader?.loadStargazers(forUser: user!, withRepo: repository!) { [weak self] result in
+        isLoadingNewPage = true
+
+        stargazersLoader?.loadStargazers(forUser: user!, withRepo: repository!, page: 1) { [weak self] result in
             guard let self = self else { return }
-            if let stargazers = try? result.get() {
-                self.model = stargazers
+            self.isLoadingNewPage = false
+            self.currentLoadedPage = 1
+
+            if let stargazersPage = try? result.get() {
+                self.isLastPage = stargazersPage.isLast
+                self.model = stargazersPage.stargazers
                 self.tableView.reloadData()
             }
             self.refreshControl?.endRefreshing()
@@ -51,4 +61,30 @@ public final class StargazersViewController: UITableViewController {
         return cell
     }
 
+    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.isDragging else { return }
+
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        if (offsetY > contentHeight - scrollView.frame.height && !isLoadingNewPage && !isLastPage) {
+            requestNextPage()
+        }
+    }
+
+    private func requestNextPage() {
+        isLoadingNewPage = true
+        let pageToLoad = currentLoadedPage + 1
+
+        stargazersLoader?.loadStargazers(forUser: user!, withRepo: repository!, page: pageToLoad) { [weak self] result in
+            guard let self = self else { return }
+            self.isLoadingNewPage = false
+            self.currentLoadedPage = pageToLoad
+
+            if let stargazersPage = try? result.get() {
+                self.isLastPage = stargazersPage.isLast
+                self.model.append(contentsOf: stargazersPage.stargazers)
+                self.tableView.reloadData()
+            }
+        }
+    }
 }
