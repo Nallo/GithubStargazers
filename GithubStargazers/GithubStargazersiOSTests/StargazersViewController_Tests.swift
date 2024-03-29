@@ -43,48 +43,51 @@ class StargazersViewController_Tests: XCTestCase {
         return StargazersPage(isLast: isLast, stargazers: stargazers)
     }
 
-//    func test_loadCompletion_rendersSuccessfullyLoadedStargazers() {
-//        let stargazer0 = makeStargazer(username: "stargazer0")
-//        let stargazer1 = makeStargazer(username: "stargazer1")
-//        let stargazer2 = makeStargazer(username: "stargazer2")
-//
-//        let pageWithoutStargazers = makePage(stargazers: [])
-//        let pageWithOneStargazer = makePage(stargazers: [stargazer0])
-//        let pageWithThreeStargazers = makePage(stargazers: [stargazer0, stargazer1, stargazer2])
-//
-//        let (loader, sut) = makeSUT()
-//
-//        sut.loadViewIfNeeded()
-//        assertThat(sut, isRendering: pageWithoutStargazers)
-//
-//        loader.completeLoading(with: pageWithOneStargazer, at: 0)
-//        assertThat(sut, isRendering: pageWithOneStargazer)
-//
-//        sut.triggerReloading()
-//        loader.completeLoading(with: pageWithThreeStargazers, at: 1)
-//        assertThat(sut, isRendering: pageWithThreeStargazers)
-//
-//        sut.triggerReloading()
-//        loader.completeLoadingWithError(at: 2)
-//        assertThat(sut, isRendering: pageWithThreeStargazers)
-//    }
+    func test_loadCompletion_rendersSuccessfullyLoadedStargazers_withEmptyResult() {
+        let pageWithoutStargazers = makePage(stargazers: [])
 
-//    func test_avatarImageView_loadsImageURLWhenVisible() {
-//        let stargazer0 = makeStargazer(avatarURL: URL(string: "http://0-avatar-url.com")!)
-//        let stargazer1 = makeStargazer(avatarURL: URL(string: "http://1-avatar-url.com")!)
-//        let page = makePage(stargazers: [stargazer0, stargazer1])
-//        let (loader, sut) = makeSUT()
-//
-//        sut.loadViewIfNeeded()
-//        loader.completeLoading(with: page, at: 0)
-//        XCTAssertEqual([], loader.loadedAvatarURLs, "expected no avatars are loaded until cell is visible")
-//
-//        sut.simulateAvatarViewVisible(at: 0)
-//        XCTAssertEqual([stargazer0.avatarURL], loader.loadedAvatarURLs, "expected first avatar loaded when first cell is visible")
-//
-//        sut.simulateAvatarViewVisible(at: 1)
-//        XCTAssertEqual([stargazer0.avatarURL, stargazer1.avatarURL], loader.loadedAvatarURLs, "expected first and second avatars loaded when second cell is visible")
-//    }
+        let (loader, sut) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        assertThat(sut, isRendering: pageWithoutStargazers)
+
+        loader.completeLoading(with: pageWithoutStargazers)
+        assertThat(sut, isRendering: pageWithoutStargazers)
+    }
+
+    func test_loadCompletion_rendersSuccessfullyLoadedStargazers() {
+        let stargazer0 = makeStargazer(username: "stargazer0")
+        let stargazer1 = makeStargazer(username: "stargazer1")
+        let stargazer2 = makeStargazer(username: "stargazer2")
+
+        let pageWithoutStargazers = makePage(stargazers: [])
+        let pageWithThreeStargazers = makePage(stargazers: [stargazer0, stargazer1, stargazer2])
+
+        let (loader, sut) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        assertThat(sut, isRendering: pageWithoutStargazers)
+
+        loader.completeLoading(with: pageWithThreeStargazers)
+        assertThat(sut, isRendering: pageWithThreeStargazers)
+    }
+
+    func test_avatarImageView_loadsImageURLWhenVisible() {
+        let stargazer0 = makeStargazer(avatarURL: URL(string: "http://0-avatar-url.com")!)
+        let stargazer1 = makeStargazer(avatarURL: URL(string: "http://1-avatar-url.com")!)
+        let page = makePage(stargazers: [stargazer0, stargazer1])
+        let (loader, sut) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        loader.completeLoading(with: page, at: 0)
+        XCTAssertEqual([], loader.loadedAvatarURLs, "expected no avatars are loaded until cell is visible")
+
+        sut.simulateAvatarViewVisible(at: 0)
+        XCTAssertEqual([stargazer0.avatarURL], loader.loadedAvatarURLs, "expected first avatar loaded when first cell is visible")
+
+        sut.simulateAvatarViewVisible(at: 1)
+        XCTAssertEqual([stargazer0.avatarURL, stargazer1.avatarURL], loader.loadedAvatarURLs, "expected first and second avatars loaded when second cell is visible")
+    }
 
     private func assertThat(_ sut: StargazersViewController, isRendering stargazersPage: StargazersPage, file: StaticString = #filePath, line: UInt = #line) {
         let stargazers = stargazersPage.stargazers
