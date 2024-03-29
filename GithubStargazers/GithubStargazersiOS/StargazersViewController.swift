@@ -97,3 +97,13 @@ public final class StargazersViewController: UICollectionViewController {
         }
     }
 }
+
+extension StargazersViewController: UICollectionViewDelegateFlowLayout {
+
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width: CGFloat = (collectionView.frame.width / 2) - 30
+        let height: CGFloat = 250
+        return CGSize(width: width, height: height)
+    }
+
+}
