@@ -8,12 +8,14 @@
 import UIKit
 import GithubStargazers
 
-public final class StargazersViewController: UITableViewController {
+public final class StargazersViewController: UICollectionViewController {
 
     var avatarsLoader: AvatarsLoader?
     var stargazersLoader: StargazersLoader?
     var user: String?
     var repository: String?
+
+    @IBOutlet public weak var refreshControl: UIActivityIndicatorView!
 
     private var model = [Stargazer]()
     private var isLastPage = true
@@ -27,7 +29,7 @@ public final class StargazersViewController: UITableViewController {
     }
 
     @IBAction private func load() {
-        refreshControl?.beginRefreshing()
+        refreshControl.startAnimating()
 
         isLoadingNewPage = true
 
@@ -39,23 +41,23 @@ public final class StargazersViewController: UITableViewController {
             if let stargazersPage = try? result.get() {
                 self.isLastPage = stargazersPage.isLast
                 self.model = stargazersPage.stargazers
-                self.tableView.reloadData()
+                self.collectionView.reloadData()
             }
-            self.refreshControl?.endRefreshing()
+            self.refreshControl.stopAnimating()
         }
     }
 
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return model.count
     }
 
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellModel = model[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        cell.textLabel?.text = cellModel.login
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        // cell.textLabel?.text = cellModel.login
         avatarsLoader?.loadAvatar(from: cellModel.avatarURL) { [weak cell] reult in
             if let data = try? reult.get() {
-                cell?.imageView?.image = UIImage(data: data)
+                // cell?.imageView?.image = UIImage(data: data)
             }
         }
         return cell
@@ -83,7 +85,7 @@ public final class StargazersViewController: UITableViewController {
             if let stargazersPage = try? result.get() {
                 self.isLastPage = stargazersPage.isLast
                 self.model.append(contentsOf: stargazersPage.stargazers)
-                self.tableView.reloadData()
+                self.collectionView.reloadData()
             }
         }
     }
