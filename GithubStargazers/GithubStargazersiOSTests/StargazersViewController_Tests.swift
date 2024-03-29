@@ -97,7 +97,7 @@ class StargazersViewController_Tests: XCTestCase {
         stargazers.enumerated().forEach { idx, stargazer in
             let view = sut.stargazerView(at: idx)
             XCTAssertNotNil(view, "expected view controller to render view with \(stargazer)", file: file, line: line)
-            // XCTAssertEqual(stargazer.login, view?.usernameText, "expected view controller to configure cell with \(stargazer.login), got \(view?.usernameText ?? "") instead", file: file, line: line)
+            XCTAssertEqual(stargazer.login, view?.usernameText, "expected view controller to configure cell with \(stargazer.login), got \(view?.usernameText ?? "") instead", file: file, line: line)
         }
     }
 
@@ -170,10 +170,10 @@ private extension StargazersViewController {
         return collectionView.numberOfItems(inSection: 0)
     }
 
-    func stargazerView(at row: Int) -> UICollectionViewCell? {
+    func stargazerView(at row: Int) -> StargazerCollectionViewCell? {
         let datasource = collectionView.dataSource
         let index = IndexPath(row: row, section: 0)
-        return datasource?.collectionView(collectionView, cellForItemAt: index)
+        return datasource?.collectionView(collectionView, cellForItemAt: index) as? StargazerCollectionViewCell
     }
 
     var isShowingLoadingIndicator: Bool {
@@ -182,7 +182,7 @@ private extension StargazersViewController {
 
 }
 
-private extension UITableViewCell {
+private extension StargazerCollectionViewCell {
     var usernameText: String? {
         return textLabel?.text
     }

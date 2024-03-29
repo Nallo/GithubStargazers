@@ -8,6 +8,13 @@
 import UIKit
 import GithubStargazers
 
+
+public final class StargazerCollectionViewCell: UICollectionViewCell {
+
+    @IBOutlet public weak var textLabel: UILabel!
+
+}
+
 public final class StargazersViewController: UICollectionViewController {
 
     var avatarsLoader: AvatarsLoader?
@@ -53,8 +60,8 @@ public final class StargazersViewController: UICollectionViewController {
 
     public override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellModel = model[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        // cell.textLabel?.text = cellModel.login
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! StargazerCollectionViewCell
+        cell.textLabel?.text = cellModel.login
         avatarsLoader?.loadAvatar(from: cellModel.avatarURL) { [weak cell] reult in
             if let data = try? reult.get() {
                 // cell?.imageView?.image = UIImage(data: data)
