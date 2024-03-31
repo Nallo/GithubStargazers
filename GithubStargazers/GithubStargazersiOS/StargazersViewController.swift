@@ -106,8 +106,13 @@ public final class StargazersViewController: UICollectionViewController {
 extension StargazersViewController: UICollectionViewDelegateFlowLayout {
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = (collectionView.frame.width / 2) - 30
-        let height: CGFloat = 250
+        let columns: CGFloat = 2
+        let collectionViewWidth = collectionView.bounds.width
+        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        let spaceBetweenCells = flowLayout.minimumInteritemSpacing * (columns - 1)
+        let adjustedWidth = collectionViewWidth - spaceBetweenCells
+        let width: CGFloat = adjustedWidth / columns
+        let height: CGFloat = width * 4 / 3
         return CGSize(width: width, height: height)
     }
 
