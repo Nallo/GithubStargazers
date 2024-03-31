@@ -13,6 +13,11 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet public weak var textLabel: UILabel!
 
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        contentView.backgroundColor = .green
+    }
+
 }
 
 public final class StargazersViewController: UICollectionViewController {
