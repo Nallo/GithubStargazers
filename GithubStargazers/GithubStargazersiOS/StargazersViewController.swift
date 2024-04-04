@@ -26,9 +26,8 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(textLabel)
 
         NSLayoutConstraint.activate([
-            textLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            textLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            textLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            textLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            textLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
     }
 
@@ -56,6 +55,7 @@ public final class StargazersViewController: UICollectionViewController {
         super.viewDidLoad()
 
         collectionView.register(StargazerCollectionViewCell.self, forCellWithReuseIdentifier: StargazerCollectionViewCell.identifier)
+        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
 
         load()
     }
@@ -127,7 +127,7 @@ extension StargazersViewController: UICollectionViewDelegateFlowLayout {
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let columns: CGFloat = 2
-        let collectionViewWidth = collectionView.bounds.width
+        let collectionViewWidth = collectionView.bounds.width - collectionView.contentInset.right - collectionView.contentInset.left
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
         let spaceBetweenCells = flowLayout.minimumInteritemSpacing * (columns - 1)
         let adjustedWidth = collectionViewWidth - spaceBetweenCells
