@@ -12,10 +12,7 @@ public final class StargazersUIComposer {
     private init() {}
 
     public static func stargazerController(withAvatarLoader avatarLoader: AvatarsLoader, stargazersLoader: StargazersLoader, user: String, repository: String) -> StargazersViewController {
-        let bundle = Bundle(for: StargazersViewController.self)
-        let storyboard = UIStoryboard(name: "Stargazers", bundle: bundle)
-
-        let stargazerController = storyboard.instantiateInitialViewController() as! StargazersViewController
+        let stargazerController = StargazersViewController()
         stargazerController.avatarsLoader = MainQueueDispatchDecorator(decoratee: avatarLoader)
         stargazerController.stargazersLoader = MainQueueDispatchDecorator(decoratee: stargazersLoader)
         stargazerController.user = user

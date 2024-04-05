@@ -16,6 +16,7 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
     public let textLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         return label
     }()
 
@@ -26,8 +27,9 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(textLabel)
 
         NSLayoutConstraint.activate([
-            textLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            textLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            textLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            textLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            textLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
     }
 
@@ -37,31 +39,50 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
 
 }
 
-public final class StargazersViewController: UICollectionViewController {
+public final class StargazersViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     var avatarsLoader: AvatarsLoader?
     var stargazersLoader: StargazersLoader?
     var user: String?
     var repository: String?
 
-    @IBOutlet public weak var refreshControl: UIActivityIndicatorView!
+    // @IBOutlet public weak var refreshControl: UIActivityIndicatorView!
 
     private var model = [Stargazer]()
     private var isLastPage = true
     private var isLoadingNewPage = false
     private var currentLoadedPage = 1
 
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 4
+        layout.minimumLineSpacing = 4
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .white
+        collectionView.register(StargazerCollectionViewCell.self, forCellWithReuseIdentifier: StargazerCollectionViewCell.identifier)
+        return collectionView
+    }()
+
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionView.register(StargazerCollectionViewCell.self, forCellWithReuseIdentifier: StargazerCollectionViewCell.identifier)
-        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        view.addSubview(collectionView)
+
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
 
         load()
     }
 
-    @IBAction private func load() {
-        refreshControl.startAnimating()
+    private func load() {
+//        refreshControl.startAnimating()
 
         isLoadingNewPage = true
 
@@ -75,15 +96,15 @@ public final class StargazersViewController: UICollectionViewController {
                 self.model = stargazersPage.stargazers
                 self.collectionView.reloadData()
             }
-            self.refreshControl.stopAnimating()
+//            self.refreshControl.stopAnimating()
         }
     }
 
-    public override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return model.count
     }
 
-    public override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellModel = model[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! StargazerCollectionViewCell
         cell.textLabel.text = cellModel.login
@@ -95,7 +116,7 @@ public final class StargazersViewController: UICollectionViewController {
         return cell
     }
 
-    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView.isDragging else { return }
 
         let offsetY = scrollView.contentOffset.y
@@ -121,18 +142,11 @@ public final class StargazersViewController: UICollectionViewController {
             }
         }
     }
-}
-
-extension StargazersViewController: UICollectionViewDelegateFlowLayout {
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let columns: CGFloat = 2
-        let collectionViewWidth = collectionView.bounds.width - collectionView.contentInset.right - collectionView.contentInset.left
-        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-        let spaceBetweenCells = flowLayout.minimumInteritemSpacing * (columns - 1)
-        let adjustedWidth = collectionViewWidth - spaceBetweenCells
-        let width: CGFloat = adjustedWidth / columns
-        let height: CGFloat = width * 4 / 3
+        let numberOfColumns = 2
+        let width = collectionView.bounds.width / CGFloat(numberOfColumns) - 4
+        let height = width * 4 / 3
         return CGSize(width: width, height: height)
     }
 
