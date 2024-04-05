@@ -46,12 +46,17 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
     var user: String?
     var repository: String?
 
-    // @IBOutlet public weak var refreshControl: UIActivityIndicatorView!
-
     private var model = [Stargazer]()
     private var isLastPage = true
     private var isLoadingNewPage = false
     private var currentLoadedPage = 1
+
+    public var refreshControl: UIActivityIndicatorView = {
+        let ai = UIActivityIndicatorView(style: .large)
+        ai.translatesAutoresizingMaskIntoConstraints = false
+        ai.hidesWhenStopped = true
+        return ai
+    }()
 
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -70,19 +75,23 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
         super.viewDidLoad()
 
         view.addSubview(collectionView)
+        collectionView.addSubview(refreshControl)
 
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            refreshControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            refreshControl.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
 
         load()
     }
 
     private func load() {
-//        refreshControl.startAnimating()
+        refreshControl.startAnimating()
 
         isLoadingNewPage = true
 
@@ -96,7 +105,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
                 self.model = stargazersPage.stargazers
                 self.collectionView.reloadData()
             }
-//            self.refreshControl.stopAnimating()
+            self.refreshControl.stopAnimating()
         }
     }
 
