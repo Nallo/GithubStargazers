@@ -155,7 +155,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfColumns = 2
         let width = collectionView.bounds.width / CGFloat(numberOfColumns) - 4
-        let height = width * 4 / 3
+        let height = width
         return CGSize(width: width, height: height)
     }
 
