@@ -54,7 +54,7 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
 
 }
 
-public final class StargazersViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+public final class StargazersViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDataSourcePrefetching, UICollectionViewDelegateFlowLayout {
 
     var avatarsLoader: AvatarsLoader?
     var stargazersLoader: StargazersLoader?
@@ -80,6 +80,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
+        collectionView.prefetchDataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .white
         collectionView.register(StargazerCollectionViewCell.self, forCellWithReuseIdentifier: StargazerCollectionViewCell.identifier)
@@ -140,12 +141,8 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
         return cell
     }
 
-    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.isDragging else { return }
-
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        if (offsetY > contentHeight - scrollView.frame.height && !isLoadingNewPage && !isLastPage) {
+    public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        if let lastIndexPath = indexPaths.last, lastIndexPath.row == model.count - 1 && !isLoadingNewPage && !isLastPage {
             requestNextPage()
         }
     }
