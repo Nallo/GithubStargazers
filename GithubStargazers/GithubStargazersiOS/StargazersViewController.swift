@@ -13,6 +13,14 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
 
     public static let identifier: String = "cell"
 
+    public let imageView: UIImageView = {
+        let bundle = Bundle(for: StargazerCollectionViewCell.self)
+        let image = UIImage(resource: .init(name: "avatar", bundle: bundle))
+        let iv = UIImageView(image: image)
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+
     public let textLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -24,9 +32,16 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
 
         contentView.backgroundColor = .green
+        contentView.addSubview(imageView)
         contentView.addSubview(textLabel)
 
         NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            imageView.bottomAnchor.constraint(equalTo: textLabel.topAnchor, constant: -8),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+
+            textLabel.heightAnchor.constraint(equalToConstant: 30),
             textLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             textLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             textLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
@@ -119,7 +134,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
         cell.textLabel.text = cellModel.login
         avatarsLoader?.loadAvatar(from: cellModel.avatarURL) { [weak cell] reult in
             if let data = try? reult.get() {
-                // cell?.imageView?.image = UIImage(data: data)
+                 cell?.imageView.image = UIImage(data: data)
             }
         }
         return cell
