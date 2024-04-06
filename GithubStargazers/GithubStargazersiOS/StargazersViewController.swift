@@ -36,7 +36,7 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
     public override init(frame: CGRect) {
         super.init(frame: frame)
 
-        contentView.backgroundColor = .green
+        contentView.backgroundColor = UIColor(red: 202/255, green: 226/225, blue: 213/255, alpha: 1)
         contentView.layer.cornerRadius = 12
         contentView.addSubview(imageView)
         contentView.addSubview(textLabel)
