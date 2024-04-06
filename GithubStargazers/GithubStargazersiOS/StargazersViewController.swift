@@ -13,11 +13,16 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
 
     public static let identifier: String = "cell"
 
-    public let imageView: UIImageView = {
+    private let imageViewPlaceholder: UIImage = {
         let bundle = Bundle(for: StargazerCollectionViewCell.self)
         let image = UIImage(resource: .init(name: "avatar", bundle: bundle))
-        let iv = UIImageView(image: image)
+        return image
+    }()
+
+    public lazy var imageView: UIImageView = {
+        let iv = UIImageView(image: imageViewPlaceholder)
         iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.clipsToBounds = true
         return iv
     }()
 
@@ -53,6 +58,10 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    public override func prepareForReuse() {
+        imageView.image = imageViewPlaceholder
     }
 
 }
