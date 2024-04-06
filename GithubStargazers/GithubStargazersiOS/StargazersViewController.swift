@@ -88,7 +88,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 4
-        layout.minimumLineSpacing = 4
+        layout.minimumLineSpacing = 16
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
@@ -96,6 +96,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
         collectionView.delegate = self
         collectionView.backgroundColor = .white
         collectionView.register(StargazerCollectionViewCell.self, forCellWithReuseIdentifier: StargazerCollectionViewCell.identifier)
+        collectionView.contentInset = .init(top: 0, left: 24, bottom: 0, right: 24)
         return collectionView
     }()
 
@@ -178,7 +179,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfColumns = 2
-        let width = collectionView.bounds.width / CGFloat(numberOfColumns) - 4
+        let width = collectionView.bounds.width / CGFloat(numberOfColumns) - 4 - 32
         let height = width
         return CGSize(width: width, height: height)
     }
