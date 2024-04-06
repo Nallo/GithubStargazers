@@ -37,9 +37,13 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
 
         contentView.backgroundColor = UIColor(red: 202/255, green: 226/225, blue: 213/255, alpha: 1)
-        contentView.layer.cornerRadius = 12
         contentView.addSubview(imageView)
         contentView.addSubview(textLabel)
+
+        contentView.layer.cornerRadius = 12
+        contentView.layer.shadowColor = UIColor.lightGray.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 3, height: 3)
+        contentView.layer.shadowOpacity = 1
 
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
