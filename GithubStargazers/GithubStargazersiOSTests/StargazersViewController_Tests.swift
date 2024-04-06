@@ -97,7 +97,7 @@ class StargazersViewController_Tests: XCTestCase {
         stargazers.enumerated().forEach { idx, stargazer in
             let view = sut.stargazerView(at: idx)
             XCTAssertNotNil(view, "expected view controller to render view with \(stargazer)", file: file, line: line)
-            XCTAssertEqual(stargazer.login, view?.usernameText, "expected view controller to configure cell with \(stargazer.login), got \(view?.usernameText ?? "") instead", file: file, line: line)
+            XCTAssertEqual(stargazer.login.capitalized, view?.usernameText, "expected view controller to configure cell with \(stargazer.login), got \(view?.usernameText ?? "") instead", file: file, line: line)
         }
     }
 
@@ -184,7 +184,7 @@ private extension StargazersViewController {
 
 private extension StargazerCollectionViewCell {
     var usernameText: String? {
-        return textLabel?.text
+        return textLabel.text
     }
 }
 

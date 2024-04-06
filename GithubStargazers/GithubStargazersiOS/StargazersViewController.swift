@@ -90,7 +90,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
         return ai
     }()
 
-    lazy var collectionView: UICollectionView = {
+    public lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 4
         layout.minimumLineSpacing = 16
