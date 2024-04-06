@@ -146,7 +146,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellModel = model[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! StargazerCollectionViewCell
-        cell.textLabel.text = cellModel.login
+        cell.textLabel.text = cellModel.login.capitalized
         avatarsLoader?.loadAvatar(from: cellModel.avatarURL) { [weak cell] reult in
             if let data = try? reult.get() {
                  cell?.imageView.image = UIImage(data: data)
