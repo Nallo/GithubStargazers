@@ -46,6 +46,9 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
             textLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             textLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
+
+        imageView.layoutIfNeeded()
+        imageView.layer.cornerRadius = imageView.frame.height / 2
     }
 
     required init?(coder: NSCoder) {
