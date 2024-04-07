@@ -11,6 +11,16 @@ import GithubStargazersiOS
 
 class StargazersViewController_Tests: XCTestCase {
 
+    func test_init_setsTitleCorrectly() {
+        let repository = "a-repository-name"
+        let expectedTitle = "A Repository Name ⭐️"
+        let (_, sut) = makeSUT(repository: repository)
+
+        sut.loadViewIfNeeded()
+
+        XCTAssertEqual(sut.title, expectedTitle, "expected \"\(expectedTitle)\" as title. Got \"\(String(describing: sut.title))\" instead")
+    }
+
     func test_loadStargazers_requestStargazersToLoader() {
         let (loader, sut) = makeSUT()
         XCTAssertEqual(0, loader.loadStargazersCallCount, "expected no service loading before the view is loaded into memory")
@@ -103,9 +113,8 @@ class StargazersViewController_Tests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (loader: StargazersLoaderSpy, sut: StargazersViewController) {
+    private func makeSUT(repository: String = "any-repository", file: StaticString = #filePath, line: UInt = #line) -> (loader: StargazersLoaderSpy, sut: StargazersViewController) {
         let user = "any-user"
-        let repository = "any-repository"
         let loader = StargazersLoaderSpy()
         let sut = StargazersUIComposer.stargazerController(withAvatarLoader: loader, stargazersLoader: loader, user: user, repository: repository)
         trackForMemoryLeaks(loader, file: file, line: line)

@@ -107,6 +107,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        title = getTitle(fromRepositoryName: repository)
 
         view.addSubview(collectionView)
         collectionView.addSubview(refreshControl)
@@ -180,6 +181,11 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
                 self.collectionView.reloadData()
             }
         }
+    }
+
+    private func getTitle(fromRepositoryName repository: String?) -> String? {
+        guard let unwrappedRepository = repository else { return nil }
+        return unwrappedRepository.replacingOccurrences(of: "-", with: " ").capitalized.appending(" ⭐️")
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
