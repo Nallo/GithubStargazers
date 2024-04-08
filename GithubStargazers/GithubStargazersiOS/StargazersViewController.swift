@@ -36,7 +36,7 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
     public override init(frame: CGRect) {
         super.init(frame: frame)
 
-        contentView.backgroundColor = UIColor(red: 202/255, green: 226/225, blue: 213/255, alpha: 1)
+        contentView.backgroundColor = .white
         contentView.addSubview(imageView)
         contentView.addSubview(textLabel)
 
@@ -44,6 +44,8 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
         contentView.layer.shadowColor = UIColor.lightGray.cgColor
         contentView.layer.shadowOffset = CGSize(width: 3, height: 3)
         contentView.layer.shadowOpacity = 1
+        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.borderWidth = 0.5
 
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
@@ -99,7 +101,7 @@ public final class StargazersViewController: UIViewController, UICollectionViewD
         collectionView.dataSource = self
         collectionView.prefetchDataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = UIColor(red: 243/255, green: 250/225, blue: 250/255, alpha: 1)
         collectionView.register(StargazerCollectionViewCell.self, forCellWithReuseIdentifier: StargazerCollectionViewCell.identifier)
         collectionView.contentInset = .init(top: 0, left: 24, bottom: 0, right: 24)
         return collectionView
