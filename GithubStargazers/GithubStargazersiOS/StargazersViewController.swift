@@ -19,6 +19,18 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
         return image
     }()
 
+    private let imageViewShadow: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.shadowColor = UIColor.lightGray.cgColor
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowOpacity = 1
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 0.5
+        return view
+    }()
+
     public lazy var imageView: UIImageView = {
         let iv = UIImageView(image: imageViewPlaceholder)
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +49,7 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
 
         contentView.backgroundColor = .white
+        contentView.addSubview(imageViewShadow)
         contentView.addSubview(imageView)
         contentView.addSubview(textLabel)
 
@@ -48,6 +61,11 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderWidth = 0.5
 
         NSLayoutConstraint.activate([
+            imageViewShadow.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            imageViewShadow.bottomAnchor.constraint(equalTo: textLabel.topAnchor, constant: -8),
+            imageViewShadow.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+            imageViewShadow.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             imageView.bottomAnchor.constraint(equalTo: textLabel.topAnchor, constant: -8),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
@@ -58,6 +76,9 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
             textLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             textLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
+
+        imageViewShadow.layoutIfNeeded()
+        imageViewShadow.layer.cornerRadius = imageViewShadow.frame.height / 2
 
         imageView.layoutIfNeeded()
         imageView.layer.cornerRadius = imageView.frame.height / 2
