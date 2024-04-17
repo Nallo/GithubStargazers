@@ -60,6 +60,11 @@
                BlueprintName = "GithubStargazersEnd2EndTests"
                ReferencedContainer = "container:GithubStargazers.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "GithubStargazersEnd2EndTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
