@@ -15,8 +15,7 @@ public final class StargazerCollectionViewCell: UICollectionViewCell {
 
     private let imageViewPlaceholder: UIImage = {
         let bundle = Bundle(for: StargazerCollectionViewCell.self)
-        let imageResource = ImageResource(name: "avatar", bundle: bundle)
-        let image = UIImage(resource: imageResource)
+        let image = UIImage(named: "avatar", in: bundle, with: .none)!
         return image
     }()
 
