@@ -16,6 +16,8 @@ class InputViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupNavigationBar()
     }
 
     @IBAction func displayStargazersDidTap(_ sender: UIButton) {
@@ -26,6 +28,14 @@ class InputViewController: UIViewController {
         } else {
             displayAlert()
         }
+    }
+
+    private func setupNavigationBar() {
+        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .title1)
+        ]
     }
 
     private func dismissKeyboard() {

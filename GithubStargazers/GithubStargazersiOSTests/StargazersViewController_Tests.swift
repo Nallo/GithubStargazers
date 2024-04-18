@@ -11,21 +11,25 @@ import GithubStargazersiOS
 
 class StargazersViewController_Tests: XCTestCase {
 
+    func test_init_setsTitleCorrectly() {
+        let repository = "a-repository-name"
+        let expectedTitle = "A Repository Name ⭐️"
+        let (_, sut) = makeSUT(repository: repository)
+
+        sut.loadViewIfNeeded()
+
+        XCTAssertEqual(sut.title, expectedTitle, "expected \"\(expectedTitle)\" as title. Got \"\(String(describing: sut.title))\" instead")
+    }
+
     func test_loadStargazers_requestStargazersToLoader() {
         let (loader, sut) = makeSUT()
         XCTAssertEqual(0, loader.loadStargazersCallCount, "expected no service loading before the view is loaded into memory")
 
         sut.loadViewIfNeeded()
         XCTAssertEqual(1, loader.loadStargazersCallCount, "expected loading once when the view is loaded into memory")
-
-        sut.triggerReloading()
-        XCTAssertEqual(2, loader.loadStargazersCallCount, "expected loading when user pull to refresh")
-
-        sut.triggerReloading()
-        XCTAssertEqual(3, loader.loadStargazersCallCount, "expected loading when user pull to refresh")
     }
 
-    func test_loadingIndicator_isVisibleWhileLoading() {
+    func test_loadingIndicator_isNotVisibleWhenLoadingCompletesSuccessfully() {
         let (loader, sut) = makeSUT()
 
         sut.loadViewIfNeeded()
@@ -33,16 +37,32 @@ class StargazersViewController_Tests: XCTestCase {
 
         loader.completeLoading(at: 0)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "expected to hide loading indicator when service completes loading")
+    }
 
-        sut.triggerReloading()
-        XCTAssertTrue(sut.isShowingLoadingIndicator, "expected to display loading indicator when user trigger reloading")
+    func test_loadingIndicator_isNotVisibleWhenLoadingCompletesWithError() {
+        let (loader, sut) = makeSUT()
 
-        loader.completeLoadingWithError(at: 1)
-        XCTAssertFalse(sut.isShowingLoadingIndicator, "expected to hide loading indicator when reloading completes")
+        sut.loadViewIfNeeded()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "expected to display loading indicator while service is loading")
+
+        loader.completeLoadingWithError(at: 0)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "expected to hide loading indicator when service completes loading with error")
     }
 
     private func makePage(isLast: Bool = true, stargazers: [Stargazer]) -> StargazersPage {
         return StargazersPage(isLast: isLast, stargazers: stargazers)
+    }
+
+    func test_loadCompletion_rendersSuccessfullyLoadedStargazers_withEmptyResult() {
+        let pageWithoutStargazers = makePage(stargazers: [])
+
+        let (loader, sut) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        assertThat(sut, isRendering: pageWithoutStargazers)
+
+        loader.completeLoading(with: pageWithoutStargazers)
+        assertThat(sut, isRendering: pageWithoutStargazers)
     }
 
     func test_loadCompletion_rendersSuccessfullyLoadedStargazers() {
@@ -51,7 +71,6 @@ class StargazersViewController_Tests: XCTestCase {
         let stargazer2 = makeStargazer(username: "stargazer2")
 
         let pageWithoutStargazers = makePage(stargazers: [])
-        let pageWithOneStargazer = makePage(stargazers: [stargazer0])
         let pageWithThreeStargazers = makePage(stargazers: [stargazer0, stargazer1, stargazer2])
 
         let (loader, sut) = makeSUT()
@@ -59,15 +78,7 @@ class StargazersViewController_Tests: XCTestCase {
         sut.loadViewIfNeeded()
         assertThat(sut, isRendering: pageWithoutStargazers)
 
-        loader.completeLoading(with: pageWithOneStargazer, at: 0)
-        assertThat(sut, isRendering: pageWithOneStargazer)
-
-        sut.triggerReloading()
-        loader.completeLoading(with: pageWithThreeStargazers, at: 1)
-        assertThat(sut, isRendering: pageWithThreeStargazers)
-
-        sut.triggerReloading()
-        loader.completeLoadingWithError(at: 2)
+        loader.completeLoading(with: pageWithThreeStargazers)
         assertThat(sut, isRendering: pageWithThreeStargazers)
     }
 
@@ -96,15 +107,14 @@ class StargazersViewController_Tests: XCTestCase {
         stargazers.enumerated().forEach { idx, stargazer in
             let view = sut.stargazerView(at: idx)
             XCTAssertNotNil(view, "expected view controller to render view with \(stargazer)", file: file, line: line)
-            XCTAssertEqual(stargazer.login, view?.usernameText, "expected view controller to configure cell with \(stargazer.login), got \(view?.usernameText ?? "") instead", file: file, line: line)
+            XCTAssertEqual(stargazer.login.capitalized, view?.usernameText, "expected view controller to configure cell with \(stargazer.login), got \(view?.usernameText ?? "") instead", file: file, line: line)
         }
     }
 
     // MARK: - Helpers
 
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (loader: StargazersLoaderSpy, sut: StargazersViewController) {
+    private func makeSUT(repository: String = "any-repository", file: StaticString = #filePath, line: UInt = #line) -> (loader: StargazersLoaderSpy, sut: StargazersViewController) {
         let user = "any-user"
-        let repository = "any-repository"
         let loader = StargazersLoaderSpy()
         let sut = StargazersUIComposer.stargazerController(withAvatarLoader: loader, stargazersLoader: loader, user: user, repository: repository)
         trackForMemoryLeaks(loader, file: file, line: line)
@@ -165,29 +175,25 @@ private extension StargazersViewController {
         _ = stargazerView(at: row)
     }
 
-    func triggerReloading() {
-        refreshControl?.simulatePullToRefresh()
-    }
-
     func numberOfRenderedStargazers() -> Int {
-        return tableView.numberOfRows(inSection: 0)
+        return collectionView.numberOfItems(inSection: 0)
     }
 
-    func stargazerView(at row: Int) -> UITableViewCell? {
-        let datasource = tableView.dataSource
+    func stargazerView(at row: Int) -> StargazerCollectionViewCell? {
+        let datasource = collectionView.dataSource
         let index = IndexPath(row: row, section: 0)
-        return datasource?.tableView(tableView, cellForRowAt: index)
+        return datasource?.collectionView(collectionView, cellForItemAt: index) as? StargazerCollectionViewCell
     }
 
     var isShowingLoadingIndicator: Bool {
-        return refreshControl?.isRefreshing == true
+        return refreshControl.isAnimating
     }
 
 }
 
-private extension UITableViewCell {
+private extension StargazerCollectionViewCell {
     var usernameText: String? {
-        return textLabel?.text
+        return textLabel.text
     }
 }
 
