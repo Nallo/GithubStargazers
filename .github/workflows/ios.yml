@@ -21,4 +21,4 @@ jobs:
         run: xcodebuild clean build test -workspace GithubStargazers.xcworkspace -scheme GithubStargazers CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
       - name: Build and Test GithubStargazersiOS Framework
-        run: xcodebuild clean build test -workspace GithubStargazers.xcworkspace -scheme GithubStargazersiOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -destination "platform=iOS Simulator,name=iPhone 15"
+        run: xcodebuild clean build test -workspace GithubStargazers.xcworkspace -scheme GithubStargazersiOS CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -destination "platform=iOS Simulator,name=iPhone 14"
